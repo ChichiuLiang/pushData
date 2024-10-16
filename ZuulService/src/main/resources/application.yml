@@ -1,0 +1,40 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: service-zuul
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+#配置服务注册中心信息
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true #是否检索服务
+    registry-fetch-interval-seconds: 30 # 间隔多长时间(s)去检索服务注册信息，默认是30s
+    service-url:
+      defaultZone: http://localhost:8000/eureka  #指定服务注册中心的位置
+
+
+#配置网关路由信息
+zuul:
+  host:
+    connect-timeout-millis: 15000
+    socket-timeout-millis: 60000
+
+  routes:
+    #    serviceFrameRouter: #路由规则名称，可自定义
+    #      path: /sendFrame/**   #所有符合/frames/**规则的访问都会路由到名为service-id所指定的服务上
+    #      service-id: serviceFrame  #服务名称，该服务的application.yml文件里的"spring.application.name"配置项所指定的名称
+    userService:
+      path: /user/**
+      serviceId: service-user
+
+  # 是否开启重试功能
+  retryable: true
+  sensitive-headers: #防止客户端请求头中的Authorization，经过zuul转发后丢失
+

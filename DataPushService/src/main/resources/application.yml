@@ -1,0 +1,24 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: service-DataPush
+
+  redis:
+    host: 10.2.10.128
+    port: 6380
+
+  datasource:
+    url: jdbc:mysql://10.2.4.33:3306/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: iems.gree
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8000/eureka/

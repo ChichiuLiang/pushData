@@ -7,7 +7,6 @@ spring:
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-
 #配置服务注册中心信息
 eureka:
   instance:
@@ -30,11 +29,10 @@ zuul:
     #    serviceFrameRouter: #路由规则名称，可自定义
     #      path: /sendFrame/**   #所有符合/frames/**规则的访问都会路由到名为service-id所指定的服务上
     #      service-id: serviceFrame  #服务名称，该服务的application.yml文件里的"spring.application.name"配置项所指定的名称
-    userService:
-      path: /user/**
-      serviceId: service-user
+    DataReceive:
+      path: /receive/**
+      serviceId: service-DataReceive
 
   # 是否开启重试功能
   retryable: true
   sensitive-headers: #防止客户端请求头中的Authorization，经过zuul转发后丢失
-

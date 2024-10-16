@@ -7,7 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>DataReceiveService</artifactId>
+    <artifactId>DataReceiveService_1</artifactId>
     <packaging>jar</packaging>
 
     <name>DataReceiveService</name>

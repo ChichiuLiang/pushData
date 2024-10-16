@@ -21,7 +21,7 @@ public class T2502PushDataService implements CollectionRedisData {
 
 
     public String getPushUrl(){
-        return "http://localhost:6666/receiveT2502Data";
+        return "http://localhost:8001/receive/receiveT2502Data";
     }
 
     @Override

@@ -22,7 +22,7 @@ public class T1803PushDataService implements CollectionRedisData {
 
     public String getPushUrl(){
 
-        return "http://localhost:6666/receiveT1803Data";
+        return "http://localhost:8001/receive/receiveT1803Data";
     }
 
     @Override

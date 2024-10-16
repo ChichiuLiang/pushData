@@ -19,6 +19,7 @@ public class ReceiverController {
 
     @PostMapping(value = "/receiveT1803Data")
     public void receiveT1803Data(@RequestBody String data){
+        System.out.println("receiver1-work");
         receiverService.receiveT1803Data(data);
     }
 

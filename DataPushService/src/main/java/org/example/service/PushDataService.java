@@ -25,10 +25,13 @@ public class PushDataService {
 
         dataMap.put("topic",topic);
         dataMap.put("data",context);
-        HttpEntity<Map<String,String>> httpEntity =  new HttpEntity<Map<String,String>>(dataMap);
+        try {
+            HttpEntity<Map<String,String>> httpEntity =  new HttpEntity<Map<String,String>>(dataMap);
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
+            ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println(response.getBody());
     }
 }

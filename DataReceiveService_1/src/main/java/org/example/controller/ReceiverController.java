@@ -17,17 +17,9 @@ public class ReceiverController {
     @Resource
     private ReceiverService receiverService;
 
-    @PostMapping(value = "/receiveT1803Data")
-    public void receiveT1803Data(@RequestBody String data){
+    @PostMapping(value = "/receiveData")
+    public void receiveData(@RequestBody String data){
         System.out.println("receiver1-work");
-        receiverService.receiveT1803Data(data);
-    }
-
-
-
-
-    @PostMapping(value = "/receiveT2502Data")
-    public void receiveT2502Data(@RequestBody String data){
-        receiverService.receiveT2502Data(data);
+        receiverService.receiveData(data);
     }
 }

@@ -18,22 +18,22 @@ public class ReceiverService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    public void receiveT1803Data(@RequestBody String data){
-        JSONObject jsonObject = JSON.parseObject(data);
+    public void receiveData(String data){
+        JSONObject msgObject = JSON.parseObject(data);
 
-        String channel = jsonObject.getString("topic");
-        String context = jsonObject.getString("data");
+        String channel = msgObject.getString("topic");
+        String context = msgObject.getString("data");
 
         redisTemplate.convertAndSend(channel,context);
-    }
 
+        JSONObject jsonObject = JSON.parseObject(context);//解析内容信息JSON串
+        String frameType = jsonObject.getString("frameType");//帧类型
+        String deviceType = jsonObject.getString( "deviceType");//设备类型
+        String dataType = jsonObject.getString( "dataType");//数据类型，能源数据，状态数据，控制数据
+        String deviceAddress = jsonObject.getString( "address");//设备地址
+        String frameDatetime = jsonObject.getString("dateTime");//数据帧上报时间
+        JSONObject subJsonObj = jsonObject.getJSONObject("data");//有效数据
 
-    public void receiveT2502Data(@RequestBody String data){
-        JSONObject jsonObject = JSON.parseObject(data);
-
-        String channel = jsonObject.getString("topic");
-        String context = jsonObject.getString("data");
-
-       redisTemplate.convertAndSend(channel,context);
+        //数据处理
     }
 }

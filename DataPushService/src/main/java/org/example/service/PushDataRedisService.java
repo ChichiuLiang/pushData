@@ -16,7 +16,7 @@ import java.util.Map;
  * @Date 2024/10/16
  */
 @Service
-public class PushDataService {
+public class PushDataRedisService {
     @Resource
     private RestTemplate restTemplate;
 
@@ -29,6 +29,7 @@ public class PushDataService {
             HttpEntity<Map<String,String>> httpEntity =  new HttpEntity<Map<String,String>>(dataMap);
 
             ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
+            System.out.println(response.toString());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

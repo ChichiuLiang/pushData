@@ -34,7 +34,7 @@ public class RedisListener implements MessageListener {
         RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(factory);
         //订阅topic
-        redisMessageListenerContainer.addMessageListener(redisListener,new PatternTopic("IEMS_*"));
+        redisMessageListenerContainer.addMessageListener(redisListener,new PatternTopic("ToDB_*"));
         return redisMessageListenerContainer;
     }
 

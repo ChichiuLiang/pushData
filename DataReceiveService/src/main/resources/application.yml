@@ -1,5 +1,5 @@
 server:
-  port: 6666
+  port: 8092
 
   tomcat:
     max-connections: 8192   #最大连接数
@@ -12,7 +12,7 @@ spring:
     name: service-DataReceive
 
   redis:
-    host: 127.0.0.1
+    host: 172.23.32.151
     port: 6380
 
   datasource:

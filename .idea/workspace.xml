@@ -4,23 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/entity/TableMapping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/DataPushStatisticService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/ConfigQueryControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="删除eureka">
+      <change afterPath="$PROJECT_DIR$/.idea/JavaSceneConfigState.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/TaskSchedulerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/QuickQueryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/TestControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/AsyncConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/AsyncConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/entity/TableMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/entity/TableMapping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/redis/RedisListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/redis/RedisListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/redis/RedisMessageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/redis/RedisMessageUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataReceiveService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataReceiveService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataReceiveService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataReceiveService/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EurekaService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/DataPushStatisticService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/ConfigQueryControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/ConfigQueryControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataReceiveService/src/main/java/org/example/controller/ReceiverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataReceiveService/src/main/java/org/example/controller/ReceiverController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +43,10 @@
     <bower-package value="" />
     <bower.json value="" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -84,13 +86,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.EurekaStartApplication.executor": "Run",
-    "Spring Boot.PushStartApplication.executor": "Run",
+    "Spring Boot.PushStartApplication.executor": "Debug",
     "Spring Boot.ZuulStartApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "1.8",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/Gree Project/EneryDataReturn",
+    "last_opened_file_path": "F:/Gree Project/EneryDataReturn/DataPushService/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.stylelint": "true",
@@ -104,7 +106,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "configurable.tailwindcss",
+    "settings.editor.selected.configurable": "http.proxy",
     "spring.configuration.checksum": "138767469623632e16fcf94e1ac025a6",
     "vue.rearranger.settings.migration": "true"
   }
@@ -114,11 +116,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Gree Project\EneryDataReturn\DataPushService\src\main\resources" />
       <recent name="F:\IdeaProjects\IEMS-energyDataReturn\DataPushService\src\main\java\org\example" />
       <recent name="F:\IdeaProjects\IEMS-energyDataReturn\DataReceiveService\src\main\java\org\example" />
       <recent name="F:\IdeaProjects\IEMS-energyDataReturn\ZuulService\src\main\resources" />
       <recent name="F:\IdeaProjects\IEMS-energyDataReturn\DataReceiveService\src\main" />
-      <recent name="F:\IdeaProjects\IEMS-energyDataReturn\DataReturnService\src\main\java\org\example" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.service" />
@@ -144,6 +146,7 @@
     </configuration>
     <configuration name="PushStartApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="DataPushService" />
+      <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.PushStartApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,6 +172,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.EurekaStartApplication" />
+      <item itemvalue="Spring Boot.PushStartApplication" />
+      <item itemvalue="Spring Boot.ReceiveStartApplication" />
+      <item itemvalue="Spring Boot.ZuulStartApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ZuulStartApplication" />
@@ -209,8 +218,19 @@
       <workItem from="1732329035221" duration="85000" />
       <workItem from="1732580954507" duration="1260000" />
       <workItem from="1732601212535" duration="24806000" />
-      <workItem from="1732796693911" duration="22722000" />
+      <workItem from="1732796693911" duration="25482000" />
+      <workItem from="1732936679736" duration="23696000" />
+      <workItem from="1733044855558" duration="8620000" />
     </task>
+    <task id="LOCAL-00001" summary="删除eureka">
+      <option name="closed" value="true" />
+      <created>1732883010842</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732883010842</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +247,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="删除eureka" />
+    <option name="LAST_COMMIT_MESSAGE" value="删除eureka" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -235,27 +259,197 @@
           <line>33</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java</url>
           <line>30</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/ConfigQueryControl.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="6" />
+          <line>86</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>108</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>156</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>138</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>152</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>180</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>182</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>184</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>114</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <breakpoint type="java-exception">
           <properties class="com.netflix.discovery.shared.transport.TransportException" package="com.netflix.discovery.shared.transport" />
           <option name="timeStamp" value="8" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="((LinkedHashMap.Entry)((org.springframework.util.LinkedCaseInsensitiveMap)row).entrySet().toArray()[0]).getKey()" custom="org.springframework.util.LinkedCaseInsensitiveMap,java.util.LinkedHashMap.Entry" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>

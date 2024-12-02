@@ -19,7 +19,7 @@ public class ReceiverController {
 
     @PostMapping(value = "/receiveData")
     public void receiveData(@RequestBody String data){
-        System.out.println("receiver1-work");
+        //System.out.println("receiver1-work");
         receiverService.receiveData(data);
     }
 }

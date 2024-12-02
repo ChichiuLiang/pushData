@@ -1,47 +1,47 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.example</groupId>
-        <artifactId>IEMS-energyDataReturn</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <parent>
+            <groupId>org.example</groupId>
+            <artifactId>IEMS-energyDataReturn</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </parent>
 
-    <artifactId>DataPushService</artifactId>
-    <packaging>jar</packaging>
+        <artifactId>DataPushService</artifactId>
+        <packaging>jar</packaging>
 
-    <name>DataReturnService</name>
-    <url>http://maven.apache.org</url>
+        <name>DataPushService</name>
+        <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+        <properties>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        </properties>
 
-    <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-eureka</artifactId>-->
-<!--            <version>1.4.6.RELEASE</version>-->
-<!--        </dependency>-->
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version> <!-- 使用适当的版本 -->
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
+        <dependencies>
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-eureka</artifactId>-->
+    <!--            <version>1.4.6.RELEASE</version>-->
+    <!--        </dependency>-->
+        </dependencies>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version> <!-- 使用适当的版本 -->
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </project>

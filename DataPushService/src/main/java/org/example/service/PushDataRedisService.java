@@ -29,7 +29,7 @@ public class PushDataRedisService {
             HttpEntity<Map<String,String>> httpEntity =  new HttpEntity<Map<String,String>>(dataMap);
 
             ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
-            System.out.println(response.toString());
+            //System.out.println(response.toString());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

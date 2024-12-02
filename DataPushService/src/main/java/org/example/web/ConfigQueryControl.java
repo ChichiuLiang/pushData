@@ -17,8 +17,8 @@ public class ConfigQueryControl {
     }
 
     @GetMapping("/getLocalDeviceIdMap")
-    public Map<String, String> getLocalDeviceIdMap() {
-        return configQueryService.getLocalDeviceIdMap();
+    public Map<String, String> getLocalDeviceIdToBarCodeTypeAddressMap() {
+        return configQueryService.getLocalDeviceIdToBarCodeTypeAddressMap();
     }
 
     @GetMapping("/getRemoteDeviceIdMap")

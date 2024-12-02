@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Date 2024/9/2
  */
 @Configuration
-public class AsyncConfig {
+public class    AsyncConfig {
     @Bean("async-executor-spring")
     //io密集型
     public Executor AsyncExecutor(){

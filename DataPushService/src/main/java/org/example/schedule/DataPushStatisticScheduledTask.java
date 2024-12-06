@@ -42,7 +42,7 @@ public class DataPushStatisticScheduledTask {
     private ConfigQueryService configQueryService;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    @Scheduled(cron = "0 */15 * * * ?")  // 每小时执行一次
+    @Scheduled(cron = "0 */15 * * * ?")  // 每15分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -51,7 +51,10 @@ public class DataPushStatisticScheduledTask {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String startTimeStr = startTime.format(formatter);
         String endTimeStr = endTime.format(formatter);
+
+        String preTimeStart = startTime.minusDays(1).format(formatter);
         doPush(startTimeStr, endTimeStr);
+        doPush(preTimeStart, startTimeStr);
     }
 
     public void doPush(String startTimeStr, String endTimeStr){

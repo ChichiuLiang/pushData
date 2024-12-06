@@ -4,9 +4,9 @@ server:
 spring:
   application:
     name: service-DataPush
-#  redis:
-#    host: 116.205.171.117
-#    port: 7523
+  redis:
+    host: 116.205.171.117
+    port: 7523
   datasource:
     url: jdbc:mysql://116.205.171.117:7522/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     #url: jdbc:mysql://localhost:3306/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
@@ -26,3 +26,5 @@ eureka:
 
 localUrl: http://localhost:8000/
 remoteReceiveUrl: http://service.iems.gree.com:8092/receive
+
+energyName: shequ

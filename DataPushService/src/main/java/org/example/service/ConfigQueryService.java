@@ -27,7 +27,8 @@ public class ConfigQueryService implements CommandLineRunner {
     }
     @Autowired
     public QuickQueryService quickQueryConfigService;
-
+    @Value("${energyName}")
+    private String energyName;
     private Map<String, String> remoteBarCodeTypeAddressMap = new HashMap<>();
     private Map<String, String> localDeviceIdToBarCodeTypeAddressMap = new HashMap<>();
     private Map<String, String> localDeviceIdToInsertRemoteInfoMap = new HashMap<>();
@@ -57,6 +58,64 @@ public class ConfigQueryService implements CommandLineRunner {
             log.error("获取远程设备ID映射失败：" + e.getMessage());
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     * 获取本地设备ID映射
+     * @return 本地设备ID映射
+     */
+    public Map<String, String> getLocalDeviceIdToBarCodeTypeAddressMap() {
+        String sql = "SELECT dbi.id,concat(bar_code,dt.type_code,address) FROM iems_app.device_base_info dbi\n" +
+                "join home_info hi on hi.id = dbi.home_id\n" +
+                "join device_type dt on dt.id = dbi.device_type_id  \n" +
+                " where dbi.id > 0 and dbi.home_id>0 and bar_code is not null \n" +
+                "order by home_id,device_type_id,address";
+        if(!energyName.equals("shequ")){
+            //如果不是社区的能源站,则无需映射
+            return quickQueryConfigService.queryForMapString(sql);
+        }
+
+        //社区的网关号需要映射
+        Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+        Map<String, String> result = new HashMap<>();
+        for(Map.Entry<String, String> entry : temp.entrySet()){
+            //社区网关号做映射
+            String value = getString(entry.getValue());
+            result.put(entry.getKey(), value);
+        }
+        return result;
+    }
+
+    private static String getString(String valueStr) {
+        String value ;
+        value = valueStr.replace("01 00 1A 00 00 00 00 00 00 00 00 00 00 00 00","F1 00 1A 00 00 00 00 00 00 00 00 00 00 00 00");
+        value = value.replace("02 00 02 04 00 04 03 00 00 08 04 04 00 00 01","F2 00 02 04 00 04 03 00 00 08 04 04 00 00 01");
+        value = value.replace("02 00 02 04 00 06 00 05 01 03 04 06 00 00 01","F2 00 02 04 00 06 00 05 01 03 04 06 00 00 01");
+        value = value.replace("02 00 12 00 00 00 00 00 00 00 00 00 00 00 00","F2 00 12 00 00 00 00 00 00 00 00 00 00 00 00");
+        return value;
+    }
+
+    public Map<String, String> getLocalDeviceIdToInsertRemoteInfoMap() {
+        String sql = "SELECT dbi.id,concat(bar_code,'-',IF(dbi.name IS NOT NULL AND dbi.name != '', dbi.name, '上传'),'-',address,'-',dt.type_code,'-',pv.protocol_num) FROM iems_app.device_base_info dbi\n" +
+                "join home_info hi on hi.id = dbi.home_id\n" +
+                "join device_type dt on dt.id = dbi.device_type_id\n" +
+                "join protocol_version pv on pv.id = dt.protocol_id\n" +
+                " where dbi.id > 0 and dbi.home_id>0\n" +
+                "order by home_id,device_type_id,address";
+        if(!energyName.equals("shequ")){
+            //如果不是社区的能源站,则无需映射
+            return quickQueryConfigService.queryForMapString(sql);
+        }
+        //社区的网关号需要映射
+        Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+        Map<String, String> result = new HashMap<>();
+        for(Map.Entry<String, String> entry : temp.entrySet()){
+            //社区网关号做映射
+            String value = getString(entry.getValue());
+            result.put(entry.getKey(), value);
+        }
+        return result;
 
     }
 
@@ -93,7 +152,7 @@ public class ConfigQueryService implements CommandLineRunner {
             return null;
         }
         if(remoteDeviceId == null){
-            String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId, null);
+            String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId.toString(), null);
             if(insertRemoteInfo != null){
                 String[] insertRemoteInfoArray = insertRemoteInfo.split("-");
                 if(insertRemoteInfoArray.length == 5){
@@ -118,52 +177,19 @@ public class ConfigQueryService implements CommandLineRunner {
      * @param protocolNum 协议号
      * @return 设备ID
      */
-    public Integer insertRemoteDeviceInfo(String barCode, String deviceName, String address, String typeCode, int protocolNum) {
+    public Integer insertRemoteDeviceInfo(String barCode, String deviceName, String address, String typeCode, Integer protocolNum) {
         String url = remoteReceiveUrl + "/device";
         // 创建请求体
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("barCode", barCode);
         requestBody.put("deviceName", deviceName);
-        requestBody.put("address", address);
-        requestBody.put("typeCode", typeCode);
+        requestBody.put("deviceAddr", address);
+        requestBody.put("devTypeCode", typeCode);
         requestBody.put("protocolNum", protocolNum);
 
         return doPostRequest(url, requestBody, Integer.class); // 使用通用的 POST 请求方法
     }
 
-    /**
-     * 获取本地设备ID映射
-     * @return 本地设备ID映射
-     */
-    public Map<String, String> getLocalDeviceIdToBarCodeTypeAddressMap() {
-        String sql = "SELECT dbi.id,concat(bar_code,dt.type_code,address) FROM iems_app.device_base_info dbi\n" +
-                "join home_info hi on hi.id = dbi.home_id\n" +
-                "join device_type dt on dt.id = dbi.device_type_id  \n" +
-                " where dbi.id > 0 and dbi.home_id>0 and bar_code is not null \n" +
-                "order by home_id,device_type_id,address";
-        return quickQueryConfigService.queryForMapString(sql);
-    }
-
-    public Map<String, String> getLocalDeviceIdToInsertRemoteInfoMap() {
-        String sql = "SELECT dbi.id,concat(bar_code,'-',IF(dbi.name IS NOT NULL AND dbi.name != '', dbi.name, '上传'),'-',address,'-',dt.type_code,'-',pv.protocol_num) FROM iems_app.device_base_info dbi\n" +
-                "join home_info hi on hi.id = dbi.home_id\n" +
-                "join device_type dt on dt.id = dbi.device_type_id\n" +
-                "join protocol_version pv on pv.id = dt.protocol_id\n" +
-                " where dbi.id > 0 and dbi.home_id>0\n" +
-                "order by home_id,device_type_id,address";
-        return quickQueryConfigService.queryForMapString(sql);
-    }
-
-    /**
-     * 封装的 GET 请求方法
-     * @param url 请求的 URL
-     * @param responseType 响应类型
-     * @param <T> 响应类型
-     * @return 响应数据
-     */
-    private <T> T doGetRequest(String url, Class<T> responseType) {
-        return restTemplate.getForObject(url, responseType);
-    }
 
     /**
      * 封装的 POST 请求方法
@@ -174,6 +200,30 @@ public class ConfigQueryService implements CommandLineRunner {
      * @return 响应数据
      */
     private <T> T doPostRequest(String url, Object requestBody, Class<T> responseType) {
-        return restTemplate.postForObject(url, requestBody, responseType);
+        try {
+            return restTemplate.postForObject(url, requestBody, responseType);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+
     }
+
+
+    /**
+     * 封装的 GET 请求方法
+     * @param url 请求的 URL
+     * @param responseType 响应类型
+     * @param <T> 响应类型
+     * @return 响应数据
+     */
+    private <T> T doGetRequest(String url, Class<T> responseType) {
+        try {
+            return restTemplate.getForObject(url, responseType);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
 }

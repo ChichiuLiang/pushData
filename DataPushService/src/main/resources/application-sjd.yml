@@ -31,3 +31,5 @@ eureka:
 
 localUrl: http://localhost:8000/
 remoteReceiveUrl: http://service.iems.gree.com:8092/receive
+
+energyName: shangJiaoDa

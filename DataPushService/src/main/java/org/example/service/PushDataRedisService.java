@@ -1,6 +1,7 @@
 package org.example.service;
 
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,18 @@ import java.util.Map;
 public class PushDataRedisService {
     @Resource
     private RestTemplate restTemplate;
+    @Value("${energyName}")
+    private String energyName;
 
     public void pushData(String context,String topic,String url){
         Map<String,String> dataMap = new HashMap<String, String>();
+        if(energyName.equals("shequ")){
+            //能源站映射
+            topic = topic.replace("01 00 1A 00 00 00 00 00 00 00 00 00 00 00 00","F1 00 1A 00 00 00 00 00 00 00 00 00 00 00 00");
+            topic = topic.replace("02 00 02 04 00 04 03 00 00 08 04 04 00 00 01","F2 00 02 04 00 04 03 00 00 08 04 04 00 00 01");
+            topic = topic.replace("02 00 02 04 00 06 00 05 01 03 04 06 00 00 01","F2 00 02 04 00 06 00 05 01 03 04 06 00 00 01");
+            topic = topic.replace("02 00 12 00 00 00 00 00 00 00 00 00 00 00 00","F2 00 12 00 00 00 00 00 00 00 00 00 00 00 00");
+        }
 
         dataMap.put("topic",topic);
         dataMap.put("data",context);

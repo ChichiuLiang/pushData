@@ -1,4 +1,4 @@
-package org.example.redis;
+package org.example.listener;
 
 import org.example.service.PushDataRedisService;
 import org.slf4j.Logger;

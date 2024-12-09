@@ -12,18 +12,15 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author 800416
- * @Date 2024/10/16
- */
 @Service
-public class PushDataRedisService {
+public class PushAlarmService {
+
     @Resource
     private RestTemplate restTemplate;
     @Value("${energyName}")
     private String energyName;
 
-    public void pushData(String context,String topic,String url){
+    public void pushAlarm(String context,String topic,String url){
         Map<String,String> dataMap = new HashMap<String, String>();
         if(energyName.equals("shequ")){
             //能源站映射,将社区的网关转成其它的

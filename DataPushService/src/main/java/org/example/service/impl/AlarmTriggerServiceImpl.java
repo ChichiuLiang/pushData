@@ -5,6 +5,8 @@ import org.example.model.AlarmConfigModel;
 import org.example.model.HomeInfoModel;
 import org.example.repository.DeviceMonitorRecordV2Repository;
 import org.example.service.AlarmTriggerService;
+import org.example.service.ConfigQueryService;
+import org.example.service.PushAlarmService;
 import org.example.utils.JsonUtil;
 import org.example.utils.ListUtil;
 import org.slf4j.Logger;
@@ -30,6 +32,11 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
 
     @Autowired
     private AlarmConfigAttributeServiceImpl alarmConfigAttributeServiceImpl;
+    @Autowired
+    private ConfigQueryService configQueryService;
+
+    @Autowired
+    private PushAlarmService pushAlarmService;
     @Override
     @Async
     public void triggerAlarmAsync(String redisKey, AlarmConfigModel model, String message) {
@@ -102,6 +109,8 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
 
                 //数据库录入
                 deviceMonitorRecordV2Repository.insertRecords(attributeId,deviceId,time,1,1,0,model.getLastValue());
+                String convertedDeviceId = queryDeviceIdConversion(String.valueOf(deviceId));
+                pushAlarmService.pushAlarm(model,homeInfoModel,convertedDeviceId);
                 //logger.info(String.format("报警录入正常  ifExistsAlarm=%d ,箱子:%s deviceId:%d time:%s 报警字段%s 最后值:%s 错误值:%s",ifExistsAlarm,deviceName,deviceId,model.getTime(),model.getAttributeNameCn(),model.getLastValue(),errorInfo));
             }catch (Exception e){
                 logger.error(String.format("开启报警 ifExistsAlarm<1:%d ,箱子:%s deviceId:%d time:%s 报警字段:%s 最后值:%s 错误值:%s",ifExistsAlarm,deviceName,deviceId,model.getTime(),model.getAttributeNameCn(),model.getLastValue(),errorInfo));
@@ -110,6 +119,15 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
             return;
         }
         //logger.info(String.format("已报警，未恢复 ifExistsAlarm<1:%d ,箱子:%s deviceId:%d time:%s 报警字段%s 最后值:%s 错误值:%s",ifExistsAlarm,deviceName,deviceId,model.getTime(),model.getAttributeNameCn(),model.getLastValue(),errorInfo));
+    }
+
+    private String queryDeviceIdConversion(String deviceId) {
+        try {
+            return String.valueOf(configQueryService.getRemoteDeviceIdByLocalDeviceId(Integer.parseInt(deviceId)));
+        } catch (Exception e) {
+            logger.error("设备ID转换失败: {}", e.getMessage(), e);
+            return null; // 返回null表示转换失败
+        }
     }
 
     @Override

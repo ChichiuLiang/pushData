@@ -82,6 +82,7 @@ public class ConfigQueryService implements CommandLineRunner {
     }
 
     private void getLocalDeviceIds(List<Integer> localDeviceIds) {
+        localDeviceIds.clear();
         String sql="SELECT id FROM iems_app.device_base_info where id>0 ";
         List<Integer> deviceIds = entityManager.createNativeQuery(sql).getResultList();
         if(ListUtil.isNull(deviceIds)){

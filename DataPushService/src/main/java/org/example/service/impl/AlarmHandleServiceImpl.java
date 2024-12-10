@@ -31,7 +31,6 @@ public class AlarmHandleServiceImpl {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    private static final Logger logger = LoggerFactory.getLogger(AlarmHandleServiceImpl.class);
 
 
 //    @Autowired
@@ -115,13 +114,13 @@ public class AlarmHandleServiceImpl {
                 if (isAlarm) {
                     // 特殊编码处理
                     if (fieldValue.codePointAt(0) == '0') {
-                        logger.error("Unicode 编码问题: fieldName={}, fieldValue={}", fieldName, fieldValue);
+                        log.error("Unicode 编码问题: fieldName={}, fieldValue={}", fieldName, fieldValue);
                         return;
                     }
 
                     // 值为0触发报警
                     if ("0".equals(fieldValue)) {
-                        logger.error("值为0 报警判断错误: message={}", message);
+                        log.error("值为0 报警判断错误: message={}", message);
                         return;
                     }
 
@@ -133,7 +132,7 @@ public class AlarmHandleServiceImpl {
                 }
             }
         }  catch (Exception e) {
-            logger.error("处理消息出错: message={}, error={}", message, e.getMessage(), e);
+            log.error("处理消息出错: message={}, error={}", message, e.getMessage(), e);
         }
     }
 
@@ -244,7 +243,7 @@ public class AlarmHandleServiceImpl {
                 return true;
             }
         } catch (NumberFormatException e) {
-            logger.error("Invalid number format: " + e.getMessage());
+            log.error("Invalid number format: " + e.getMessage());
         }
 
         return false;

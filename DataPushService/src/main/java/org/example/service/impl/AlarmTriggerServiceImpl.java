@@ -62,7 +62,7 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
         String indexKey = model.getBarCode()+model.getTypeCode()+model.getDeviceAddress();
         String childName = alarmConfigAttributeServiceImpl.getIndexFromMap(indexKey);
         String deviceName = areaName + " " +homeName + model.getMoudleName() + childName;
-        if (errorInfo==null||errorInfo.equals("") ){
+        if (errorInfo==null|| errorInfo.isEmpty()){
             //错误值不在定义范围
             logger.info(String.format("上报错误值 箱子:%s deviceId:%d time:%s 报警字段%s 最后值:%s 错误值:%s 消息:%s",deviceName,deviceId,model.getTime(),model.getAttributeNameCn(),model.getLastValue(),errorInfo,message));
             return;
@@ -105,8 +105,6 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
 //                        //alarmMethodsService.sendSMSForStorage(134,phoneList,keywords );
 //                    }
                 }
-
-
                 //数据库录入
                 deviceMonitorRecordV2Repository.insertRecords(attributeId,deviceId,time,1,1,0,model.getLastValue());
                 String convertedDeviceId = queryDeviceIdConversion(String.valueOf(deviceId));

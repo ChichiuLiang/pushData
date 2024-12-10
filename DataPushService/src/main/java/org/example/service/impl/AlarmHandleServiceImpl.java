@@ -44,16 +44,22 @@ public class AlarmHandleServiceImpl {
             if (message == null || message.isEmpty()) {
                 return;
             }
-            logger.info(" {} Received message: {}",topic, message);
+            //logger.info(" {} Received message: {}",topic, message);
 //            // 去除最外层的双引号并解码转义字符
 //            message = message.trim().replaceAll("^\"|\"$", "").replace("\\\"", "\"");
             // 解析 JSON 消息
             JsonNode jsonMessage = objectMapper.readTree(message);
             JsonNode dataNode = jsonMessage.path("data");
+            if (dataNode == null) {
+                return;
+            }
+            if (jsonMessage.get("frameType")==null) {
+                return;
+            }
             String frameType = jsonMessage.get("frameType").asText();
 
             // 非插入操作直接过滤
-            if (!"17".equals(frameType)||topic==null) {
+            if ( !"17".equals(frameType)||topic==null) {
                 return;
             }
 
@@ -75,7 +81,7 @@ public class AlarmHandleServiceImpl {
             // 模型配置为空直接返回
             if (ListUtil.isNull(models)) {
                 return;
-                }
+            }
 
             // 遍历该一个协议的模型配置，检查报警条件
             for (AlarmConfigModel model : models) {
@@ -126,9 +132,7 @@ public class AlarmHandleServiceImpl {
                     handleCancelAlarm(redisKey, model);
                 }
             }
-        } catch (IOException e) {
-            logger.error("解析消息出错: message={}, error={}", message, e.getMessage(), e);
-        } catch (Exception e) {
+        }  catch (Exception e) {
             logger.error("处理消息出错: message={}, error={}", message, e.getMessage(), e);
         }
     }
@@ -212,40 +216,42 @@ public class AlarmHandleServiceImpl {
      * @return
      */
     private boolean checkAlarm(String fieldValue, String maxAlarm, String minAlarm, String specifyAlarm) {
-        boolean isAlarm = false;
-        if (fieldValue == null) {
-            return isAlarm;
+        // 使用 try-with-resources 或者直接解析，避免不必要的空检查
+        if (fieldValue == null || fieldValue.isEmpty()) {
+            return false;
         }
 
         // 特殊值报警
-        if (specifyAlarm != null) {
+        if (specifyAlarm != null && !specifyAlarm.isEmpty()) {
             String[] arr = specifyAlarm.split(",");
             for (String value : arr) {
-                if (fieldValue.equalsIgnoreCase(value)) {  // 使用 equalsIgnoreCase 忽略大小写差异
-                    isAlarm = true;
-                    return isAlarm;
+                if (fieldValue.equalsIgnoreCase(value)) {
+                    return true;
                 }
             }
         }
 
-        // 尝试将十六进制字符串转换为 long
+        // 尝试将数值转换为 long，考虑到数据可能是十进制或十六进制
         try {
-            long fieldVal = Long.parseLong(fieldValue, 16);
-            Long maxVal = maxAlarm != null ? Long.parseLong(maxAlarm, 16) : null;
-            Long minVal = minAlarm != null ? Long.parseLong(minAlarm, 16) : null;
+            long fieldVal = Long.parseLong(fieldValue, isHexadecimal(fieldValue) ? 16 : 10);
+            Long maxVal = maxAlarm != null && !maxAlarm.isEmpty() ? Long.parseLong(maxAlarm, isHexadecimal(maxAlarm) ? 16 : 10) : null;
+            Long minVal = minAlarm != null && !minAlarm.isEmpty() ? Long.parseLong(minAlarm, isHexadecimal(minAlarm) ? 16 : 10) : null;
 
             // 阈值报警
             if (maxVal != null && fieldVal >= maxVal) {
-                isAlarm = true;
+                return true;
             } else if (minVal != null && fieldVal <= minVal) {
-                isAlarm = true;
+                return true;
             }
         } catch (NumberFormatException e) {
-            // 处理转换失败的情况
-            System.err.println("Invalid hexadecimal value: " + e.getMessage());
+            logger.error("Invalid number format: " + e.getMessage());
         }
 
-        return isAlarm;
+        return false;
+    }
+
+    private boolean isHexadecimal(String value) {
+        return value != null && value.startsWith("0x") || value.matches("[0-9a-fA-F]+");
     }
 
 

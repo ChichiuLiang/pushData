@@ -1,5 +1,6 @@
 package org.example.schedule;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.entity.TableMapping;
 import org.example.service.ConfigQueryService;
 import org.slf4j.Logger;
@@ -23,11 +24,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Component
 public class DataPushStatisticScheduledTask {
-
-    private static final Logger logger = LoggerFactory.getLogger(DataPushStatisticScheduledTask.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -60,7 +59,7 @@ public class DataPushStatisticScheduledTask {
     public void doPush(String startTimeStr, String endTimeStr){
         List<TableMapping> mappings = getTableMappings();
         if (mappings == null || mappings.isEmpty()) {
-            logger.warn("没有找到表映射配置，跳过数据推送");
+            log.warn("没有找到表映射配置，跳过数据推送");
             return;
         }
 
@@ -76,7 +75,7 @@ public class DataPushStatisticScheduledTask {
             // 从源表查询数据
             List<Map<String, Object>> data = queryData(sourceTable, sourceFieldList,dateField,startTimeStr, endTimeStr,convertTextFields);
             if (data == null || data.isEmpty()) {
-                logger.warn("表 [{}] 无数据需要推送", sourceTable);
+                log.warn("表 [{}] 无数据需要推送", sourceTable);
                 continue;
             }
 
@@ -89,7 +88,7 @@ public class DataPushStatisticScheduledTask {
                         pushToRemoteServer(destinationTable, transformedRow, uniqueFields,destinationFields);
                     }
                 } catch (Exception e) {
-                    logger.error("处理数据时出错: {}", e.getMessage(), e);
+                    log.error("处理数据时出错: {}", e.getMessage(), e);
                     // 继续处理下一条数据
                 }
             }
@@ -101,7 +100,7 @@ public class DataPushStatisticScheduledTask {
             String sql = "SELECT * FROM table_mapping";
             return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TableMapping.class));
         } catch (Exception e) {
-            logger.error("查询表映射失败: {}", e.getMessage(), e);
+            log.error("查询表映射失败: {}", e.getMessage(), e);
             return null;
         }
     }
@@ -121,7 +120,7 @@ public class DataPushStatisticScheduledTask {
         try {
             return jdbcTemplate.queryForList(sql);
         } catch (Exception e) {
-            logger.error("查询数据失败, SQL: {} 错误信息: {}", sql, e.getMessage(), e);
+            log.error("查询数据失败, SQL: {} 错误信息: {}", sql, e.getMessage(), e);
             return null;
         }
     }
@@ -151,7 +150,7 @@ public class DataPushStatisticScheduledTask {
             }
             transformedRow.put("device_id", convertedDeviceId);
         } catch (Exception e) {
-            logger.error("字段转换失败: {}", e.getMessage(), e);
+            log.error("字段转换失败: {}", e.getMessage(), e);
             return null;  // 如果发生异常，跳过此行数据
         }
         return transformedRow;
@@ -161,7 +160,7 @@ public class DataPushStatisticScheduledTask {
         try {
             return String.valueOf(configQueryService.getRemoteDeviceIdByLocalDeviceId(Integer.parseInt(deviceId)));
         } catch (Exception e) {
-            logger.error("设备ID转换失败: {}", e.getMessage(), e);
+            log.error("设备ID转换失败: {}", e.getMessage(), e);
             return null; // 返回null表示转换失败
         }
     }
@@ -183,12 +182,17 @@ public class DataPushStatisticScheduledTask {
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
-                //logger.info("数据成功推送到接收服务: {}", response.getBody());
+                //log.info("数据成功推送到接收服务: {}", response.getBody());
             } else {
-                logger.warn("推送数据到接收服务失败，状态码: {}", response.getStatusCode());
+                log.warn("推送数据到接收服务失败，状态码: {}", response.getStatusCode());
             }
         } catch (Exception e) {
-            logger.error("推送数据到接收服务失败: {}", e.getMessage(), e);
+            log.error("推送数据到接收服务失败: {}", e.getMessage(), e);
         }
+    }
+
+    @Scheduled(cron = "0 0 */16 * * ?")
+    public void initDataPushConfigQuery() {
+        configQueryService.init();
     }
 }

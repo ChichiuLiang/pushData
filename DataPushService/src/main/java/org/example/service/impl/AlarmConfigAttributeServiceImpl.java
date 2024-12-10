@@ -103,7 +103,7 @@ public class AlarmConfigAttributeServiceImpl implements CommandLineRunner {
                 "WHERE da.is_on = 1 AND alarm_level_id > 0";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
-        for (Map<String, Object> row : rows) {
+            for (Map<String, Object> row : rows) {
             AlarmConfigModel model = new AlarmConfigModel();
             model.setAttributeId((String) row.get("attribute_id"));
             model.setTypeCode((String) row.get("type_code"));

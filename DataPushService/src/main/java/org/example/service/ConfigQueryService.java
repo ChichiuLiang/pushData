@@ -1,5 +1,6 @@
 package org.example.service;
 import lombok.extern.slf4j.Slf4j;
+import org.example.utils.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -7,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Slf4j
 @Service
@@ -20,6 +24,8 @@ public class ConfigQueryService implements CommandLineRunner {
     private String localUrl;
 
     private final RestTemplate restTemplate;
+    @Autowired
+    private EntityManager entityManager;
 
     // 使用构造函数注入 RestTemplate
     public ConfigQueryService(RestTemplate restTemplate) {
@@ -32,6 +38,7 @@ public class ConfigQueryService implements CommandLineRunner {
     private Map<String, String> remoteBarCodeTypeAddressMap = new HashMap<>();
     private Map<String, String> localDeviceIdToBarCodeTypeAddressMap = new HashMap<>();
     private Map<String, String> localDeviceIdToInsertRemoteInfoMap = new HashMap<>();
+    private List<Integer> localDeviceIds = new ArrayList<>();
     /**
      * CommandLineRunner 中执行的方法
      * @param args 命令行参数
@@ -46,19 +53,41 @@ public class ConfigQueryService implements CommandLineRunner {
     public void init(){
         try {
             Map<String, String> temp = getRemoteDeviceIdMap();
+            if(temp == null){
+                temp = new HashMap<>();
+            }
             remoteBarCodeTypeAddressMap.putAll(temp);
-            log.info("初始化 远程设备设备集 本地网关号类型地址:远程deviceId ");
+            //log.info("初始化 远程设备设备集 本地网关号类型地址:远程deviceId ");
 
             Map<String, String> temp2 = getLocalDeviceIdToBarCodeTypeAddressMap();
+            if(temp2 == null){
+                temp2 = new HashMap<>();
+            }
             localDeviceIdToBarCodeTypeAddressMap.putAll(temp2);
-            Map<String, String> temp3 = getLocalDeviceIdToInsertRemoteInfoMap();
+
+            Map<String, String> temp3 = getLocalDeviceIdToInsertRemoteInfoMap();//deviceId : 发送到远程的信息集合
+            if(temp3 == null){
+                temp3 = new HashMap<>();
+            }
             localDeviceIdToInsertRemoteInfoMap.putAll(temp3);
+
+            getLocalDeviceIds(localDeviceIds);
+
             log.info("初始化 本地设备数据集 本地deviceId:本地网关号类型地址 ");
         } catch (Exception e) {
             log.error("获取远程设备ID映射失败：" + e.getMessage());
             e.printStackTrace();
         }
 
+    }
+
+    private void getLocalDeviceIds(List<Integer> localDeviceIds) {
+        String sql="SELECT id FROM iems_app.device_base_info where id>0 ";
+        List<Integer> deviceIds = entityManager.createNativeQuery(sql).getResultList();
+        if(ListUtil.isNull(deviceIds)){
+            return;
+        }
+        localDeviceIds.addAll(deviceIds);
     }
 
     /**
@@ -143,27 +172,38 @@ public class ConfigQueryService implements CommandLineRunner {
     }
 
     public Integer getRemoteDeviceIdByLocalDeviceId(Integer deviceId ){
+        if(!localDeviceIds.contains(deviceId)){
+            return null;
+            //本地无此设备id,则返回
+        }
         String barCodeTypeAddress = getLocalDeviceIdToBarCodeTypeAddressMap(String.valueOf(deviceId));
         Integer remoteDeviceId ;
         if(barCodeTypeAddress != null){
             remoteDeviceId = getRemoteDeviceId(barCodeTypeAddress);
         }else{
-            init();
+            //log.error("本地设备ID:{} 本地未找到 BarCodeTypeAddress", deviceId);
+            //init();
             return null;
         }
-        if(remoteDeviceId == null){
-            String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId.toString(), null);
-            if(insertRemoteInfo != null){
-                String[] insertRemoteInfoArray = insertRemoteInfo.split("-");
-                if(insertRemoteInfoArray.length == 5){
-                    String barCode = insertRemoteInfoArray[0];
-                    String deviceName = insertRemoteInfoArray[1];
-                    String address = insertRemoteInfoArray[2];
-                    String typeCode = insertRemoteInfoArray[3];
-                    int protocolNum = Integer.parseInt(insertRemoteInfoArray[4]);
-                    remoteDeviceId = insertRemoteDeviceInfo(barCode, deviceName, address, typeCode, protocolNum);
-                }
+        if(remoteDeviceId != null){
+            return remoteDeviceId;
+        }
+        //远程未注册
+        String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId.toString(), null);
+        log.error("本地设备ID:{} 在本地设备ID未在本地数据库map找到 InsertRemoteInfo", deviceId);
+        if(insertRemoteInfo != null){
+            String[] insertRemoteInfoArray = insertRemoteInfo.split("-");
+            if(insertRemoteInfoArray.length == 5){
+                String barCode = insertRemoteInfoArray[0];
+                String deviceName = insertRemoteInfoArray[1];
+                String address = insertRemoteInfoArray[2];
+                String typeCode = insertRemoteInfoArray[3];
+                int protocolNum = Integer.parseInt(insertRemoteInfoArray[4]);
+                remoteDeviceId = insertRemoteDeviceInfo(barCode, deviceName, address, typeCode, protocolNum);
             }
+        }
+        else{
+            log.error("远程注册设备失败");
         }
         return remoteDeviceId;
     }

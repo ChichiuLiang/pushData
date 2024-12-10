@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author 800416
  * @Date 2024/10/16
  */
+@Slf4j
 @Service
 public class PushDataRedisService {
     @Resource
@@ -41,8 +43,7 @@ public class PushDataRedisService {
             ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
             //System.out.println(response.toString());
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error("数据推送异常:{} pushData(String context,String topic,String url) ",e.getMessage());
         }
-
     }
 }

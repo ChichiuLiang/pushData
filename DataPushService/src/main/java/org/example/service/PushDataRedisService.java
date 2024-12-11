@@ -43,7 +43,7 @@ public class PushDataRedisService {
             ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
             //System.out.println(response.toString());
         }catch (Exception e){
-            log.error("数据推送异常:{} pushData(String context,String topic,String url) ",e.getMessage());
+            log.error("redis数据推送异常:{} {} {} ",e.getMessage(),topic,context);
         }
     }
 }

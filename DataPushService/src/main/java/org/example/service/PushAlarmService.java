@@ -44,7 +44,7 @@ public class PushAlarmService {
             ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
             log.info("告警数据推送结果:{} {}",response.toString(),model.toString());
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error("告警数据推送异常:{} pushAlarm(AlarmConfigModel model{}, HomeInfoModel homeInfoModel{},String convertedDeviceId){} ",e.getMessage(),model,homeInfoModel,convertedDeviceId);
         }
     }
 }

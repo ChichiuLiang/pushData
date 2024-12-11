@@ -184,10 +184,10 @@ public class DataPushStatisticScheduledTask {
             if (response.getStatusCode() == HttpStatus.OK) {
                 //log.info("数据成功推送到接收服务: {}", response.getBody());
             } else {
-                log.warn("推送数据到接收服务失败，状态码: {}", response.getStatusCode());
+                log.warn("定时任务推送统计数据失败，状态码: {}", response.getStatusCode());
             }
         } catch (Exception e) {
-            log.error("推送数据到接收服务失败: {}", e.getMessage(), e);
+            log.error("定时任务推送统计数据失败: {} {}  ", e.getMessage(), transformedRow.toString());
         }
     }
 

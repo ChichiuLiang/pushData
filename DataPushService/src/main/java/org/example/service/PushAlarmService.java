@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.example.model.AlarmConfigModel;
 import org.example.model.HomeInfoModel;
+import org.example.utils.ReplaceGatewayUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -30,10 +31,11 @@ public class PushAlarmService {
         String barCode = model.getBarCode();
         if(energyName.equals("shequ")){
             //能源站映射,将社区的网关转成其它的
-            barCode = barCode.replace("01 00 1A 00 00 00 00 00 00 00 00 00 00 00 00","F1 00 1A 00 00 00 00 00 00 00 00 00 00 00 00");
-            barCode = barCode.replace("02 00 02 04 00 04 03 00 00 08 04 04 00 00 01","F2 00 02 04 00 04 03 00 00 08 04 04 00 00 01");
-            barCode = barCode.replace("02 00 02 04 00 06 00 05 01 03 04 06 00 00 01","F2 00 02 04 00 06 00 05 01 03 04 06 00 00 01");
-            barCode = barCode.replace("02 00 12 00 00 00 00 00 00 00 00 00 00 00 00","F2 00 12 00 00 00 00 00 00 00 00 00 00 00 00");
+            barCode = ReplaceGatewayUtil.replaceGatewayIds(barCode);
+        }
+        else if(energyName.equals("shangJiaoDa")){
+            //上交大
+            barCode = ReplaceGatewayUtil.replaceGatewayIdsBySJD(barCode);
         }
         model.setBarCode(barCode);
         homeInfoModel.setBarCode(barCode);
@@ -47,4 +49,5 @@ public class PushAlarmService {
             log.error("告警数据推送异常:{} pushAlarm(AlarmConfigModel model{}, HomeInfoModel homeInfoModel{},String convertedDeviceId){} ",e.getMessage(),model,homeInfoModel,convertedDeviceId);
         }
     }
+
 }

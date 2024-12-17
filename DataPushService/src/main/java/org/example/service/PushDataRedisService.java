@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
+import org.example.utils.ReplaceGatewayUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -28,8 +29,13 @@ public class PushDataRedisService {
 
         if ("shequ".equals(energyName)) { // 防止NPE并确保字符串比较正确
             // 能源站网关号映射,将社区的网关转成其它的
-            topic = replaceGatewayIds(topic);
-            context = replaceGatewayIds(context);
+            topic = ReplaceGatewayUtil.replaceGatewayIds(topic);
+            context = ReplaceGatewayUtil.replaceGatewayIds(context);
+        }
+        if ("shangJiaoDa".equals(energyName)) { // 防止NPE并确保字符串比较正确
+            // 能源站网关号映射,将社区的网关转成其它的
+            topic = ReplaceGatewayUtil.replaceGatewayIdsBySJD(topic);
+            context = ReplaceGatewayUtil.replaceGatewayIdsBySJD(context);
         }
 
         dataMap.put("topic", topic);
@@ -52,12 +58,5 @@ public class PushDataRedisService {
         }
     }
 
-    private String replaceGatewayIds(String input) {
-        // 重构重复代码，减少冗余
-        return input
-                .replace("01 00 1A 00 00 00 00 00 00 00 00 00 00 00 00", "F1 00 1A 00 00 00 00 00 00 00 00 00 00 00 00")
-                .replace("02 00 02 04 00 04 03 00 00 08 04 04 00 00 01", "F2 00 02 04 00 04 03 00 00 08 04 04 00 00 01")
-                .replace("02 00 02 04 00 06 00 05 01 03 04 06 00 00 01", "F2 00 02 04 00 06 00 05 01 03 04 06 00 00 01")
-                .replace("02 00 12 00 00 00 00 00 00 00 00 00 00 00 00", "F2 00 12 00 00 00 00 00 00 00 00 00 00 00 00");
-    }
+
 }

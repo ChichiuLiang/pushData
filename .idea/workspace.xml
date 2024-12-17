@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改打印日志的方式">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改redis">
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/utils/ReplaceGatewayUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/AsyncConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/AsyncConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/entity/TableMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/entity/TableMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/RedisMessageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/utils/RedisMessageUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/ToDBMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/ToDBMessageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmTriggerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmTriggerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/utils/ListUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/utils/ListUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/TestControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/TestControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +234,7 @@
       <workItem from="1734239121509" duration="366000" />
       <workItem from="1734239505887" duration="1846000" />
       <workItem from="1734350390280" duration="7010000" />
-      <workItem from="1734407030549" duration="4451000" />
+      <workItem from="1734407030549" duration="8189000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -326,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733878408701</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="修改redis">
+      <option name="closed" value="true" />
+      <created>1734417557981</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734417557981</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +347,8 @@
     <MESSAGE value="修改定式报警程序" />
     <MESSAGE value="修改设备注册逻辑" />
     <MESSAGE value="修改打印日志的方式" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改打印日志的方式" />
+    <MESSAGE value="修改redis" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改redis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -371,17 +370,17 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>179</line>
+          <line>203</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>180</line>
+          <line>204</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>208</line>
+          <line>232</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -466,7 +465,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>188</line>
+          <line>212</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -481,7 +480,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>244</line>
+          <line>268</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -671,22 +670,22 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>171</line>
+          <line>195</line>
           <option name="timeStamp" value="223" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>103</line>
+          <line>104</line>
           <option name="timeStamp" value="225" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>183</line>
+          <line>207</line>
           <option name="timeStamp" value="259" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
-          <line>178</line>
+          <line>202</line>
           <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

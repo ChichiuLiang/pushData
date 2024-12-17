@@ -1,6 +1,7 @@
 package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 import org.example.utils.ListUtil;
+import org.example.utils.ReplaceGatewayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -101,30 +102,39 @@ public class ConfigQueryService implements CommandLineRunner {
                 "join device_type dt on dt.id = dbi.device_type_id  \n" +
                 " where dbi.id > 0 and dbi.home_id>0 and bar_code is not null \n" +
                 "order by home_id,device_type_id,address";
-        if(!energyName.equals("shequ")){
+        if(energyName.equals("shequ")){
+            //社区的网关号需要映射
+            Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+            Map<String, String> result = new HashMap<>();
+            for(Map.Entry<String, String> entry : temp.entrySet()){
+                //社区网关号做映射
+                String value = ReplaceGatewayUtil.replaceGatewayIds(entry.getValue());
+                result.put(entry.getKey(), value);
+            }
+            return result;
+        }
+        else if(energyName.equals("shangJiaoDa")){
+            //社区的网关号需要映射
+            Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+            Map<String, String> result = new HashMap<>();
+            for(Map.Entry<String, String> entry : temp.entrySet()){
+                //社区网关号做映射
+                String value = ReplaceGatewayUtil.replaceGatewayIdsBySJD(entry.getValue());
+                result.put(entry.getKey(), value);
+            }
+            return result;
+        }
+        else{
             //如果不是社区的能源站,则无需映射
             return quickQueryConfigService.queryForMapString(sql);
         }
-
-        //社区的网关号需要映射
-        Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
-        Map<String, String> result = new HashMap<>();
-        for(Map.Entry<String, String> entry : temp.entrySet()){
-            //社区网关号做映射
-            String value = getString(entry.getValue());
-            result.put(entry.getKey(), value);
-        }
-        return result;
     }
 
-    private static String getString(String valueStr) {
-        String value ;
-        value = valueStr.replace("01 00 1A 00 00 00 00 00 00 00 00 00 00 00 00","F1 00 1A 00 00 00 00 00 00 00 00 00 00 00 00");
-        value = value.replace("02 00 02 04 00 04 03 00 00 08 04 04 00 00 01","F2 00 02 04 00 04 03 00 00 08 04 04 00 00 01");
-        value = value.replace("02 00 02 04 00 06 00 05 01 03 04 06 00 00 01","F2 00 02 04 00 06 00 05 01 03 04 06 00 00 01");
-        value = value.replace("02 00 12 00 00 00 00 00 00 00 00 00 00 00 00","F2 00 12 00 00 00 00 00 00 00 00 00 00 00 00");
-        return value;
-    }
+//    private static String getString(String valueStr) {
+//        String value ;
+//        value = ReplaceGatewayUtil.replaceGatewayIds(valueStr);
+//        return value;
+//    }
 
     public Map<String, String> getLocalDeviceIdToInsertRemoteInfoMap() {
         String sql = "SELECT dbi.id,concat(bar_code,'-',IF(dbi.name IS NOT NULL AND dbi.name != '', dbi.name, '上传'),'-',address,'-',dt.type_code,'-',pv.protocol_num) FROM iems_app.device_base_info dbi\n" +
@@ -133,19 +143,33 @@ public class ConfigQueryService implements CommandLineRunner {
                 "join protocol_version pv on pv.id = dt.protocol_id\n" +
                 " where dbi.id > 0 and dbi.home_id>0\n" +
                 "order by home_id,device_type_id,address";
-        if(!energyName.equals("shequ")){
-            //如果不是社区的能源站,则无需映射
+        if(energyName.equals("shequ")){
+            //社区的网关号需要映射
+            Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+            Map<String, String> result = new HashMap<>();
+            for(Map.Entry<String, String> entry : temp.entrySet()){
+                //社区网关号做映射
+                String value = ReplaceGatewayUtil.replaceGatewayIds(entry.getValue());
+                result.put(entry.getKey(), value);
+            }
+            return result;
+        }
+        else if(energyName.equals("shangJiaoDa")){
+            //社区的网关号需要映射
+            Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
+            Map<String, String> result = new HashMap<>();
+            for(Map.Entry<String, String> entry : temp.entrySet()){
+                //社区网关号做映射
+                String value = ReplaceGatewayUtil.replaceGatewayIdsBySJD(entry.getValue());
+                result.put(entry.getKey(), value);
+            }
+            return result;
+        }
+        else{
             return quickQueryConfigService.queryForMapString(sql);
         }
-        //社区的网关号需要映射
-        Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
-        Map<String, String> result = new HashMap<>();
-        for(Map.Entry<String, String> entry : temp.entrySet()){
-            //社区网关号做映射
-            String value = getString(entry.getValue());
-            result.put(entry.getKey(), value);
-        }
-        return result;
+
+
 
     }
 

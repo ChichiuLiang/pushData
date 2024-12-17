@@ -27,12 +27,12 @@ public class PushDataRedisService {
         // 使用ConcurrentHashMap增强线程安全性
         ConcurrentHashMap<String, String> dataMap = new ConcurrentHashMap<>();
 
-        if ("shequ".equals(energyName)) { // 防止NPE并确保字符串比较正确
+        if ("shequ".equals(energyName)) {
             // 能源站网关号映射,将社区的网关转成其它的
             topic = ReplaceGatewayUtil.replaceGatewayIds(topic);
             context = ReplaceGatewayUtil.replaceGatewayIds(context);
         }
-        if ("shangJiaoDa".equals(energyName)) { // 防止NPE并确保字符串比较正确
+        else if ("shangJiaoDa".equals(energyName)) {
             // 能源站网关号映射,将社区的网关转成其它的
             topic = ReplaceGatewayUtil.replaceGatewayIdsBySJD(topic);
             context = ReplaceGatewayUtil.replaceGatewayIdsBySJD(context);

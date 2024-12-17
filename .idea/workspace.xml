@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改网关映射" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改网关映射">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +233,7 @@
       <workItem from="1734239121509" duration="366000" />
       <workItem from="1734239505887" duration="1846000" />
       <workItem from="1734350390280" duration="7010000" />
-      <workItem from="1734407030549" duration="8496000" />
+      <workItem from="1734407030549" duration="9607000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -326,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734428649643</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="修改网关映射">
+      <option name="closed" value="true" />
+      <created>1734428941504</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1734428941504</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

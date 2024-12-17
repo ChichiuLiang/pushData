@@ -102,7 +102,7 @@ public class ConfigQueryService implements CommandLineRunner {
                 "join device_type dt on dt.id = dbi.device_type_id  \n" +
                 " where dbi.id > 0 and dbi.home_id>0 and bar_code is not null \n" +
                 "order by home_id,device_type_id,address";
-        if(energyName.equals("shequ")){
+        if("shequ".equals(energyName)){
             //社区的网关号需要映射
             Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
             Map<String, String> result = new HashMap<>();
@@ -113,7 +113,7 @@ public class ConfigQueryService implements CommandLineRunner {
             }
             return result;
         }
-        else if(energyName.equals("shangJiaoDa")){
+        else if("shangJiaoDa".equals(energyName)){
             //社区的网关号需要映射
             Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
             Map<String, String> result = new HashMap<>();
@@ -143,7 +143,7 @@ public class ConfigQueryService implements CommandLineRunner {
                 "join protocol_version pv on pv.id = dt.protocol_id\n" +
                 " where dbi.id > 0 and dbi.home_id>0\n" +
                 "order by home_id,device_type_id,address";
-        if(energyName.equals("shequ")){
+        if("shequ".equals(energyName)){
             //社区的网关号需要映射
             Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
             Map<String, String> result = new HashMap<>();
@@ -154,7 +154,7 @@ public class ConfigQueryService implements CommandLineRunner {
             }
             return result;
         }
-        else if(energyName.equals("shangJiaoDa")){
+        else if("shangJiaoDa".equals(energyName)){
             //社区的网关号需要映射
             Map<String, String> temp = quickQueryConfigService.queryForMapString(sql);
             Map<String, String> result = new HashMap<>();

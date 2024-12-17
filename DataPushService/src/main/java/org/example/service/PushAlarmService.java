@@ -29,11 +29,11 @@ public class PushAlarmService {
     public void pushAlarm(AlarmConfigModel model, HomeInfoModel homeInfoModel,String convertedDeviceId) {
         String url = remoteReceiveUrl + "/alarms";
         String barCode = model.getBarCode();
-        if(energyName.equals("shequ")){
+        if("shequ".equals(energyName)){
             //能源站映射,将社区的网关转成其它的
             barCode = ReplaceGatewayUtil.replaceGatewayIds(barCode);
         }
-        else if(energyName.equals("shangJiaoDa")){
+        else if("shangJiaoDa".equals(energyName)){
             //上交大
             barCode = ReplaceGatewayUtil.replaceGatewayIdsBySJD(barCode);
         }

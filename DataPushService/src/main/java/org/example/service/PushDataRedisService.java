@@ -49,7 +49,7 @@ public class PushDataRedisService {
 
             // 检查响应状态码是否为200 OK或其他成功的状态码
             if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("Data pushed successfully.");
+                //log.info("Data pushed successfully.");
             } else {
                 log.warn("Failed to push data. Status code: {}", response.getStatusCode());
             }

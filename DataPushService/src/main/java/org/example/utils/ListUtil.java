@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class ListUtil<T> {
     public static <T> void deepSelfCopy(List<T> deepSelfCopy, List<T> list ){
-        if (list.size()==0) {
+        if (list.isEmpty()) {
             return;
         }
         for (int i=1;i<deepSelfCopy.size();i++) {
             deepSelfCopy.remove(deepSelfCopy.get(i));
         }
 
-        if (deepSelfCopy.size()==0) {
+        if (deepSelfCopy.isEmpty()) {
             deepSelfCopy.add(list.get(0));
         }
         else {

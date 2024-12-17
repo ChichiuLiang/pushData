@@ -7,10 +7,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * @author 800416
- * @Date 2024/9/2
- */
+
 @Configuration
 public class AsyncConfig {
     @Bean("async-executor-spring")

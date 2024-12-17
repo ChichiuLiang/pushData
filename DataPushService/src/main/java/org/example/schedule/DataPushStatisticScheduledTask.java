@@ -72,8 +72,9 @@ public class DataPushStatisticScheduledTask {
             String dateField = mapping.getDateField();
             String destinationFields = mapping.getDestinationFields();
             String convertTextFields = mapping.getConvertTextFields();
+            String excludeCondition = mapping.getExcludeCondition();
             // 从源表查询数据
-            List<Map<String, Object>> data = queryData(sourceTable, sourceFieldList,dateField,startTimeStr, endTimeStr,convertTextFields);
+            List<Map<String, Object>> data = queryData(sourceTable, sourceFieldList,dateField,startTimeStr, endTimeStr,convertTextFields,excludeCondition);
             if (data == null || data.isEmpty()) {
                 log.warn("表 [{}] 无数据需要推送", sourceTable);
                 continue;
@@ -105,7 +106,7 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    private List<Map<String, Object>> queryData(String tableName, List<String> sourceFields, String dateField,String startTime, String endTime,String convertTextFields) {
+    private List<Map<String, Object>> queryData(String tableName, List<String> sourceFields, String dateField,String startTime, String endTime,String convertTextFields,String excludeCondition) {
         String fields = String.join(",", sourceFields);
         if(convertTextFields != null && !convertTextFields.isEmpty()){
             String[] convertArr = convertTextFields.split(",");
@@ -113,11 +114,23 @@ public class DataPushStatisticScheduledTask {
                 fields = fields.replace(field,"concat("+field+") as "+field);
             }
         }
-        String sql = "SELECT " + fields + " FROM " + tableName + " WHERE " + dateField + " BETWEEN '" + startTime + "' AND '" + endTime + "'";
+
+        String sql = "SELECT " + fields + " FROM " + tableName + " WHERE " + dateField + " BETWEEN '" + startTime + "' AND '" + endTime + "'"  ;
+        if(excludeCondition != null && !excludeCondition.isEmpty()){
+            //添加排除条件
+            sql  = sql + " AND "+ excludeCondition;
+        }
+
+
         if(dateField == null){
             sql = "SELECT " + fields + " FROM " + tableName;
+            if(excludeCondition != null && !excludeCondition.isEmpty()){
+               //添加排除条件
+               sql  = sql + " WHERE "+ excludeCondition;
+            }
         }
         try {
+            log.info("查询数据 SQL: {}", sql);
             return jdbcTemplate.queryForList(sql);
         } catch (Exception e) {
             log.error("查询数据失败, SQL: {} 错误信息: {}", sql, e.getMessage(), e);

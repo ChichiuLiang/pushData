@@ -1,25 +1,17 @@
 package org.example.config;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.listener.IEMSMessageListener;
-import org.example.listener.RedisMessageUtils;
+import org.example.utils.RedisMessageUtils;
 import org.example.listener.ToDBMessageListener;
-import org.example.service.impl.AlarmHandleServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
- * @author lee
- * @date 2023/9/15
- */
+
 @Configuration
 public class RedisConfig {
 

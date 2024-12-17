@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Slf4j
 @Service
 public class AlarmConfigAttributeServiceImpl implements CommandLineRunner {
@@ -21,17 +23,17 @@ public class AlarmConfigAttributeServiceImpl implements CommandLineRunner {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private EntityManager entityManager;
-
-    private Map<String, AlarmConfigModel> typeCodeDataTypeNoToModels = new HashMap<>();
-    private Map<String,List<AlarmConfigModel>> typeCodeToModels = new HashMap<>();
-
-    private Map<Integer,Set<Integer>> bdAreaIdToBDAreaLevelId = new HashMap<>();
-
-    private Map<String, HomeInfoModel> barCodeToModels = new HashMap<>();
     @Autowired
     private DeviceMonitorRecordV2Repository deviceMonitorRecordV2Repository;
+    private Map<String, AlarmConfigModel> typeCodeDataTypeNoToModels = new ConcurrentHashMap<>();
+    private Map<String,List<AlarmConfigModel>> typeCodeToModels =  new ConcurrentHashMap<>();
 
-    private Map<String,String> deviceToIndex = new HashMap<>();
+    private Map<Integer,Set<Integer>> bdAreaIdToBDAreaLevelId =  new ConcurrentHashMap<>();
+
+    private Map<String, HomeInfoModel> barCodeToModels =  new ConcurrentHashMap<>();
+
+
+    private Map<String,String> deviceToIndex =  new ConcurrentHashMap<>();
 
     public Map<String, AlarmConfigModel> getConfigs() {
         return typeCodeDataTypeNoToModels;
@@ -83,6 +85,11 @@ public class AlarmConfigAttributeServiceImpl implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        typeCodeDataTypeNoToModels.clear();
+        typeCodeToModels.clear();
+        bdAreaIdToBDAreaLevelId.clear();
+        barCodeToModels.clear();
+        deviceToIndex.clear();
         log.info("应用启动后自动调用 getRemoteDeviceIdMap 方法...");
         init();  // 在启动时自动调用
     }

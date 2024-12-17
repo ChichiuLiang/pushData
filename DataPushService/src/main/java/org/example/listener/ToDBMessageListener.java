@@ -1,5 +1,6 @@
  package org.example.listener;
 
+import org.example.utils.RedisMessageUtils;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 

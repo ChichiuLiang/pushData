@@ -1,4 +1,4 @@
-package org.example.listener;
+package org.example.utils;
 
 import org.example.service.PushDataRedisService;
 import org.slf4j.Logger;
@@ -9,17 +9,12 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 
-/**
- * @author lee
- * @date 2023/11/10
- */
+
 @Component
 public class RedisMessageUtils {
 
     @Resource
     private PushDataRedisService pushDataRedisService;
-
-    private static final Logger logger = LoggerFactory.getLogger(RedisMessageUtils.class);
 
     @Value("${remoteReceiveUrl}")
     private String remoteReceiveUrl;

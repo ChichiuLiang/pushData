@@ -16,6 +16,7 @@ public class TableMapping {
     private String uniqueFields;
     private String dateField;
     private String convertTextFields;
+    private String excludeCondition;
     //private String deviceIdMapping; // 设备ID转换规则（不通过数据库配置，而是查询服务器B）
 
     // Getters and Setters

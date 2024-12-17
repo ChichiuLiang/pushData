@@ -13,7 +13,7 @@ public class TestControl {
     @Autowired
     private AlarmHandleServiceImpl alarmHandleService;
     @GetMapping("/doPush")
-    public void doPush(String startTimeStr, String endTimeStr) {
+        public void doPush(String startTimeStr, String endTimeStr) {
         dataPushStatisticService.doPush( startTimeStr, endTimeStr);
     }
 

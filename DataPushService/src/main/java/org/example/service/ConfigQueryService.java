@@ -130,14 +130,10 @@ public class ConfigQueryService implements CommandLineRunner {
         }
     }
 
-//    private static String getString(String valueStr) {
-//        String value ;
-//        value = ReplaceGatewayUtil.replaceGatewayIds(valueStr);
-//        return value;
-//    }
+
 
     public Map<String, String> getLocalDeviceIdToInsertRemoteInfoMap() {
-        String sql = "SELECT dbi.id,concat(bar_code,'-',IF(dbi.name IS NOT NULL AND dbi.name != '', dbi.name, '上传'),'-',address,'-',dt.type_code,'-',pv.protocol_num) FROM iems_app.device_base_info dbi\n" +
+        String sql = "SELECT dbi.id,concat(bar_code,'==',IF(dbi.name IS NOT NULL AND dbi.name != '', dbi.name, '上传'),'==',address,'==',dt.type_code,'==',pv.protocol_num) FROM iems_app.device_base_info dbi\n" +
                 "join home_info hi on hi.id = dbi.home_id\n" +
                 "join device_type dt on dt.id = dbi.device_type_id\n" +
                 "join protocol_version pv on pv.id = dt.protocol_id\n" +
@@ -215,9 +211,9 @@ public class ConfigQueryService implements CommandLineRunner {
         }
         //远程未注册
         String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId.toString(), null);
-        log.error("本地设备ID:{} 在本地设备ID未在本地数据库map找到 InsertRemoteInfo", deviceId);
         if(insertRemoteInfo != null){
-            String[] insertRemoteInfoArray = insertRemoteInfo.split("-");
+            log.error("本地设备ID:{} 在本地设备ID未在本地数据库map找到 InsertRemoteInfo", deviceId);
+            String[] insertRemoteInfoArray = insertRemoteInfo.split("==");
             if(insertRemoteInfoArray.length == 5){
                 String barCode = insertRemoteInfoArray[0];
                 String deviceName = insertRemoteInfoArray[1];

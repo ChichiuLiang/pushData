@@ -37,7 +37,7 @@ public class AlarmHandleServiceImpl {
 //    private AlarmMethodsServiceImpl alarmMethodsService;
 
     //"{\"frameType\":\"17\",\"deviceType\":\"1312_V1_1\",\"factorySign\":\"0000\",\"address\":\"13\",\"dataType\":\"3\",\"data\":{\"B0\":0},\"dateTime\":\"2024-12-08 16:41:37\"}"
-    public void processMessage(String topic,String message) {
+    public void  processMessage(String topic,String message) {
         try {
             // 检查消息的合法性
             if (message == null || message.isEmpty()) {
@@ -87,48 +87,25 @@ public class AlarmHandleServiceImpl {
                 if (model == null || model.getDataType() == null) {
                     continue;
                 }
-
                 String fieldName = model.getAttributeNo(); // 属性编号
                 String maxAlarm = model.getMaxAlarm();
                 String minAlarm = model.getMinAlarm();
                 String specifyAlarm = model.getSpecifyAlarm();
                 String fieldValue = dataNode.path(fieldName).asText().trim();
-
                 // 字段值为空跳过
                 if (fieldValue.isEmpty()) {
                     continue;
                 }
-
-                // 设置模型相关信息
-                model.setBarCode(barCode);
-                model.setDeviceAddress(deviceAddress);
-                model.setLastValue(fieldValue);
-                model.setTime(dateTime);
-
                 // 生成 Redis Key
                 String redisKey = generateRedisKey(barCode, deviceTypeCode, String.valueOf(dataType), deviceAddress, fieldName );
-
                 // 检查是否报警
                 boolean isAlarm = checkAlarm(fieldValue, maxAlarm, minAlarm, specifyAlarm);
-
                 if (isAlarm) {
-                    // 特殊编码处理
-                    if (fieldValue.codePointAt(0) == '0') {
-                        log.error("Unicode 编码问题: fieldName={}, fieldValue={}", fieldName, fieldValue);
-                        return;
-                    }
-
-                    // 值为0触发报警
-                    if ("0".equals(fieldValue)) {
-                        log.error("值为0 报警判断错误: message={}", message);
-                        return;
-                    }
-
                     // 处理报警
-                    handleAlarm(redisKey, model,message);
+                    handleAlarm(redisKey, model,message,barCode,deviceAddress,fieldValue,dateTime);
                 } else {
                     // 解除报警
-                    handleCancelAlarm(redisKey, model);
+                    handleCancelAlarm(redisKey, model,barCode,deviceAddress,fieldValue,dateTime);
                 }
             }
         }  catch (Exception e) {
@@ -150,60 +127,16 @@ public class AlarmHandleServiceImpl {
      * @param model
      * @param message
      */
-    private void handleAlarm(String redisKey, AlarmConfigModel model, String message) {
-        // Lua 脚本，用于原子操作
-        String script =
-                "local lastAlarmTime = tonumber(redis.call('GET', KEYS[1])) " +
-                        "if lastAlarmTime == nil or (tonumber(ARGV[1]) - lastAlarmTime >= tonumber(ARGV[2])) then " +
-                        "  redis.call('SET', KEYS[1], ARGV[1]) " +
-                        "  return 1 " +
-                        "else " +
-                        "  return 0 " +
-                        "end";
-
-        // 获取当前时间戳
-        long currentTime = System.currentTimeMillis();
-
-        // 执行 Lua 脚本
-        Long result = (Long) redisTemplate.execute(new DefaultRedisScript<>(script, Long.class),
-                Collections.singletonList(redisKey),
-                String.valueOf(currentTime),
-                String.valueOf(ALARM_COOLDOWN_MILLIS));
-
-        // 如果脚本返回 1，表示可以触发报警
-        if (result != null && result == 1) {
-            // 执行报警
-            alarmTriggerService.triggerAlarmAsync(redisKey, model, message);
-        }
+    private void handleAlarm(String redisKey, AlarmConfigModel model, String message,String barCode,String  deviceAddress,String  fieldValue,String  dateTime) {
+        // 执行报警
+        alarmTriggerService.triggerAlarmAsync(redisKey, model, message,barCode,deviceAddress,fieldValue,dateTime);
     }
 
 
 
-    private void handleCancelAlarm(String redisKey, AlarmConfigModel model) {
-        // Lua 脚本，用于原子操作
-        String script =
-                "local lastAlarmTime = tonumber(redis.call('GET', KEYS[1])) " +
-                        "if lastAlarmTime ~= nil and (tonumber(ARGV[1]) - lastAlarmTime >= tonumber(ARGV[2])) then " +
-                        "  redis.call('DEL', KEYS[1]) " +  // 删除 key，表示取消报警
-                        "  return 1 " +
-                        "else " +
-                        "  return 0 " +
-                        "end";
-
-        // 获取当前时间戳
-        long currentTime = System.currentTimeMillis();
-
-        // 执行 Lua 脚本
-        Long result = (Long) redisTemplate.execute(new DefaultRedisScript<>(script, Long.class),
-                Collections.singletonList(redisKey),
-                String.valueOf(currentTime),
-                String.valueOf(ALARM_COOLDOWN_MILLIS));
-
-        // 如果脚本返回 1，表示可以取消报警
-        if (result != null && result == 1) {
-            // 执行取消报警
-            alarmTriggerService.cancelAlarmAsync(redisKey, model);
-        }
+    private void handleCancelAlarm(String redisKey, AlarmConfigModel model,String barCode,String  deviceAddress,String  fieldValue,String  dateTime) {
+        // 执行取消报警
+        alarmTriggerService.cancelAlarmAsync(redisKey, model,barCode,deviceAddress,fieldValue,dateTime);
     }
 
     /**

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AlarmTriggerService {
 
-    void cancelAlarmAsync(String redisKey, AlarmConfigModel model);
+    void cancelAlarmAsync(String redisKey, AlarmConfigModel model,String barCode,String  deviceAddress,String  fieldValue,String  dateTime);
 
-    void triggerAlarmAsync(String redisKey, AlarmConfigModel model, String message);
+    void triggerAlarmAsync(String redisKey, AlarmConfigModel model, String message,String barCode,String  deviceAddress,String  fieldValue,String  dateTime);
 }

@@ -94,27 +94,6 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
 
         //小于1及没有记录则插入
         try {
-            //紧急的才报警
-            if ("3".equals(model.getAlarmLevelId())){
-//                    //页面弹窗报警
-//                    if (homeInfoModel.getBdAreaIdsSet().size()>0){
-//                        for (Integer areaId:homeInfoModel.getBdAreaIdsSet()){
-//                            Set<Integer> areaLevelIds = alarmConfigAttributeServiceImpl.getBDAreaLevelId(areaId);
-//                            for (Integer areaLevelId:areaLevelIds){
-//                                //页面弹窗报警
-//                                //String response = alarmMethodsService.sendToSocket(areaId,time,deviceId,deviceName,lastValue,thresholdValue,attributeName,errorInfo,areaName,homeName,alarmLevelId,alarmLevelName,areaLevelId);
-//                            }
-//                        }
-//                    }
-
-//                    //短信弹窗报警
-//                    if (homeInfoModel.getBdAreaLevelIdsSet().size()>0){
-//                        List<String> phoneList = deviceMonitorRecordV2Repository.queryPhoneNumber(new ArrayList<>(homeInfoModel.getBdAreaLevelIdsSet()));
-//                        String msg  = String.format("%s %s 报警等级:[%s:%s],%s %s %s",areaName,homeName,alarmLevelId,alarmLevelName,model.getMoudleName(),attributeName,errorInfo);
-//                        String[] keywords = {time, msg , String.valueOf(lastValue)," " ," ",thresholdValue};
-//                        //alarmMethodsService.sendSMSForStorage(134,phoneList,keywords );
-//                    }
-            }
             //数据库录入
             deviceMonitorRecordV2Repository.insertRecords(attributeId,deviceId,dateTime,1,1,0,fieldValue);
             String convertedDeviceId = queryDeviceIdConversion(String.valueOf(deviceId));
@@ -152,16 +131,11 @@ public class AlarmTriggerServiceImpl implements AlarmTriggerService {
         String homeName = homeInfoModel.getHomeName();
         String deviceName = areaName + " " +homeName + model.getMoudleName() ;
         String timeAndDeviceName = dateTime+" "+deviceName;
-//        //发送短信
-//        String[] keywords = {timeAndDeviceName,attributeName,lastValue};
-//        List<String> phoneList = deviceMonitorRecordV2Repository.queryPhoneNumber(new ArrayList<>(homeInfoModel.getBdAreaLevelIdsSet()));
-        //alarmMethodsService.sendSMSForStorage(134,phoneList,keywords);
 
         //数据库写入
         List<Integer> ids = deviceMonitorRecordV2Repository.queryIdsRecordExist(deviceId,attributeId);
         if (ListUtil.isNull(ids)){
-            //log.error(String.format("查无此设备报警记录 barCode:%s dviceTypeId:%s address:%s deviceId:%d attributeId:%d",model.getBarCode(),model.getDeviceTypeId(),model.getDeviceAddress(),deviceId,attributeId));
-            return;
+             return;
         }
         try{
             deviceMonitorRecordV2Repository.updateRecords(attributeId,deviceId,dateTime,0,1,1,ids.get(0));

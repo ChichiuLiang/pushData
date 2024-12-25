@@ -65,9 +65,9 @@ public class AlarmHandleServiceImpl {
             //alarmMethodsService.sendToSocketRealTimeData(message);
             // 提取关键字段
             String barCode = topic.replace("IEMS_", "");
-            if (barCode.length() > 44) {
-                return;
-            }
+//            if (barCode.length() > 44) {
+//                return;
+//            }
             int dataType = jsonMessage.path("dataType").asInt();
             String deviceAddress = jsonMessage.path("address").asText();
             String deviceTypeCode = jsonMessage.path("deviceType").asText();
@@ -176,7 +176,7 @@ public class AlarmHandleServiceImpl {
                 return true;
             }
         } catch (NumberFormatException e) {
-            log.error("Invalid number format: " + e.getMessage());
+            log.error("Invalid number format: {}", e.getMessage());
         }
 
         return false;

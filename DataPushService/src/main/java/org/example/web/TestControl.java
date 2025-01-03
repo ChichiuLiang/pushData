@@ -1,10 +1,13 @@
 package org.example.web;
 
+import org.example.entity.TableMapping;
 import org.example.schedule.DataPushStatisticScheduledTask;
 import org.example.service.impl.AlarmHandleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class TestControl {
@@ -14,7 +17,8 @@ public class TestControl {
     private AlarmHandleServiceImpl alarmHandleService;
     @GetMapping("/doPush")
         public void doPush(String startTimeStr, String endTimeStr) {
-        dataPushStatisticService.doPush( startTimeStr, endTimeStr);
+        List<TableMapping> mappings = dataPushStatisticService.getTableMappings();
+        dataPushStatisticService.doPush( startTimeStr, endTimeStr,mappings );
     }
 
     @GetMapping("/handle")

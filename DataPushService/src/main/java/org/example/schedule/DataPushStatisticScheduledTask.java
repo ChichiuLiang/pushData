@@ -52,17 +52,32 @@ public class DataPushStatisticScheduledTask {
         String endTimeStr = endTime.format(formatter);
 
         String preTimeStart = startTime.minusDays(1).format(formatter);
-        doPush(startTimeStr, endTimeStr);
-        doPush(preTimeStart, startTimeStr);
+
+        List<TableMapping> mappings = getTableMappings();
+        doPush(startTimeStr, endTimeStr, mappings);
+        doPush(preTimeStart, startTimeStr, mappings);
     }
 
-    public void doPush(String startTimeStr, String endTimeStr){
-        List<TableMapping> mappings = getTableMappings();
+    @Scheduled(cron = "0 */5 * * * ?")  // 每15分钟       执行一次
+    public void pushAlarmDataToRemoteServer() {
+        LocalDateTime nowTime = LocalDateTime.now();
+        LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endTime = nowTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String startTimeStr = startTime.format(formatter);
+        String endTimeStr = endTime.format(formatter);
+        String preTimeStart = startTime.minusDays(1).format(formatter);
+        String sql = "SELECT * FROM iems_app.table_mapping where is_on =2 ";
+        List<TableMapping> mappings = getTableMappings(sql);
+        doPush(startTimeStr, endTimeStr, mappings);
+        doPush(preTimeStart, startTimeStr, mappings);
+    }
+
+    public void doPush(String startTimeStr, String endTimeStr,List<TableMapping> mappings){
         if (mappings == null || mappings.isEmpty()) {
             log.warn("没有找到表映射配置，跳过数据推送");
             return;
         }
-
         for (TableMapping mapping : mappings) {
             String sourceTable = mapping.getSourceTable();
             String destinationTable = mapping.getDestinationTable();
@@ -96,9 +111,19 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    private List<TableMapping> getTableMappings() {
+    public List<TableMapping> getTableMappings() {
         try {
-            String sql = "SELECT * FROM table_mapping";
+            String sql = "SELECT * FROM iems_app.table_mapping where is_on =1 ";
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TableMapping.class));
+        } catch (Exception e) {
+            log.error("查询表映射失败: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+
+    public List<TableMapping> getTableMappings(String sql) {
+        try {
             return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TableMapping.class));
         } catch (Exception e) {
             log.error("查询表映射失败: {}", e.getMessage(), e);
@@ -113,6 +138,9 @@ public class DataPushStatisticScheduledTask {
             for(String field :convertArr){
                 fields = fields.replace(field,"concat("+field+") as "+field);
             }
+        }
+        if(tableName.equals("energy_station_fault_record")){
+                fields = fields.replace("cell_number","if(concat(cell_number, ' ',fault_value) is not null,concat(cell_number, ' ',fault_value),'') as cell_number");
         }
 
         String sql = "SELECT " + fields + " FROM " + tableName + " WHERE " + dateField + " BETWEEN '" + startTime + "' AND '" + endTime + "'"  ;
@@ -129,8 +157,9 @@ public class DataPushStatisticScheduledTask {
                sql  = sql + " WHERE "+ excludeCondition;
             }
         }
+
         try {
-            log.info("查询数据 SQL: {}", sql);
+            //log.info("查询数据 SQL: {}", sql);
             return jdbcTemplate.queryForList(sql);
         } catch (Exception e) {
             log.error("查询数据失败, SQL: {} 错误信息: {}", sql, e.getMessage(), e);
@@ -150,18 +179,18 @@ public class DataPushStatisticScheduledTask {
 
         try {
             // 设备ID转换
-            String deviceId = row.get("device_id").toString();
-            String convertedDeviceId = queryDeviceIdConversion(deviceId);
-            if (convertedDeviceId == null || convertedDeviceId.equals("null")) {
-                return null;
-            }
+            String deviceId = row.get("device_id") != null ? row.get("device_id").toString() : null;
+            String convertedDeviceId = deviceId != null ? queryDeviceIdConversion(deviceId) : null;
             // 字段映射
             for (int i = 0; i < sourceFields.size(); i++) {
                 String sourceField = sourceFields.get(i).trim();
                 String destinationField = destinationFields.get(i).trim();
                 transformedRow.put(destinationField, row.get(sourceField));
             }
-            transformedRow.put("device_id", convertedDeviceId);
+            if (convertedDeviceId != null) {
+                transformedRow.put("device_id", convertedDeviceId);
+            }
+
         } catch (Exception e) {
             log.error("字段转换失败: {}", e.getMessage(), e);
             return null;  // 如果发生异常，跳过此行数据

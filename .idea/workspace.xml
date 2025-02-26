@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改不涉及deviceId的数据库表回传逻辑">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/QuickQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/QuickQueryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/TestControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/TestControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataReceiveService/src/main/java/org/example/ReceiveStartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataReceiveService/src/main/java/org/example/ReceiveStartApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +254,7 @@
       <workItem from="1739433936570" duration="1296000" />
       <workItem from="1739776759558" duration="8358000" />
       <workItem from="1739785237366" duration="594000" />
-      <workItem from="1740555270340" duration="9413000" />
+      <workItem from="1740555270340" duration="10181000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -413,7 +408,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737101777394</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="修改不涉及deviceId的数据库表回传逻辑">
+      <option name="closed" value="true" />
+      <created>1740567803622</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1740567803622</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

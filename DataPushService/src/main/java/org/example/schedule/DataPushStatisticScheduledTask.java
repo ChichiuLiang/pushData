@@ -40,7 +40,7 @@ public class DataPushStatisticScheduledTask {
     private ConfigQueryService configQueryService;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    @Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
+    //@Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -60,7 +60,7 @@ public class DataPushStatisticScheduledTask {
     /**
      * 测试小时表
      */
-    @Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
+    //@Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServerStatisticHour() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -73,13 +73,13 @@ public class DataPushStatisticScheduledTask {
         String preTimeStart = startTime.minusDays(1).format(formatter);
         String sql = "SELECT * FROM iems_app.table_mapping where is_on =3 ";
         List<TableMapping> mappings = getTableMappings(sql);
-        List<Integer> deviceIds = new ArrayList<>( );
+        List<Integer> deviceIds = new ArrayList<>(Arrays.asList(505));
         doPush(startTimeStr, endTimeStr, mappings,deviceIds);
         doPush(preTimeStart, startTimeStr, mappings,deviceIds);
     }
 
 
-    @Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
+    //@Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
     public void pushAlarmDataToRemoteServer() {
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
@@ -167,13 +167,6 @@ public class DataPushStatisticScheduledTask {
 
         String sql = "SELECT " + fields + " FROM " + tableName + " WHERE " + dateField + " BETWEEN '" + startTime + "' AND '" + endTime + "'"  ;
 
-        if(deviceIds != null && !deviceIds.isEmpty()){
-            //添加设备id条件
-            String devIds = deviceIds.stream()
-                    .map(String::valueOf) // 将每个Integer转换为String
-                    .collect(Collectors.joining(",")); // 使用逗号作为分隔符连接所有字符串
-            sql  = sql + " AND device_id in ("+devIds+") ";
-        }
 
 
         if(excludeCondition != null && !excludeCondition.isEmpty()){
@@ -182,13 +175,24 @@ public class DataPushStatisticScheduledTask {
         }
 
 
+
         if(dateField == null){
-            sql = "SELECT " + fields + " FROM " + tableName;
+            sql = "SELECT " + fields + " FROM " + tableName + " WHERE 1=1 ";
             if(excludeCondition != null && !excludeCondition.isEmpty()){
                //添加排除条件
-               sql  = sql + " WHERE "+ excludeCondition;
+               sql  = sql + " AND "+ excludeCondition;
             }
+
         }
+
+        if(deviceIds != null && !deviceIds.isEmpty()){
+            //添加设备id条件
+            String devIds = deviceIds.stream()
+                    .map(String::valueOf) // 将每个Integer转换为String
+                    .collect(Collectors.joining(",")); // 使用逗号作为分隔符连接所有字符串
+            sql  = sql + " AND device_id in ("+devIds+") ";
+        }
+
 
         if(tableName.equals("energy_station_fault_record")){
             //报警只传最后50条记录
@@ -224,7 +228,7 @@ public class DataPushStatisticScheduledTask {
                 String destinationField = destinationFields.get(i).trim();
                 transformedRow.put(destinationField, row.get(sourceField));
             }
-            if (convertedDeviceId != null) {
+            if (convertedDeviceId != null&& !convertedDeviceId.isEmpty()&& !convertedDeviceId.equals("0")&& !convertedDeviceId.equals("null")) {
                 transformedRow.put("device_id", convertedDeviceId);
             }
 
@@ -270,7 +274,7 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    @Scheduled(cron = "0 0 */16 * * ?")
+    //@Scheduled(cron = "0 0 */16 * * ?")
     public void initDataPushConfigQuery() {
         configQueryService.init();
     }

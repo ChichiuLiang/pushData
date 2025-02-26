@@ -40,7 +40,7 @@ public class DataPushStatisticScheduledTask {
     private ConfigQueryService configQueryService;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    //@Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -60,7 +60,7 @@ public class DataPushStatisticScheduledTask {
     /**
      * 测试小时表
      */
-    //@Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServerStatisticHour() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -73,13 +73,13 @@ public class DataPushStatisticScheduledTask {
         String preTimeStart = startTime.minusDays(1).format(formatter);
         String sql = "SELECT * FROM iems_app.table_mapping where is_on =3 ";
         List<TableMapping> mappings = getTableMappings(sql);
-        List<Integer> deviceIds = new ArrayList<>(Arrays.asList(505));
+        List<Integer> deviceIds = new ArrayList<>( );
         doPush(startTimeStr, endTimeStr, mappings,deviceIds);
         doPush(preTimeStart, startTimeStr, mappings,deviceIds);
     }
 
 
-    //@Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
+    @Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
     public void pushAlarmDataToRemoteServer() {
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
@@ -274,7 +274,7 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    //@Scheduled(cron = "0 0 */16 * * ?")
+    @Scheduled(cron = "0 0 */16 * * ?")
     public void initDataPushConfigQuery() {
         configQueryService.init();
     }

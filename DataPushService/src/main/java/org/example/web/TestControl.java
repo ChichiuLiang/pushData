@@ -17,8 +17,8 @@ public class TestControl {
     private AlarmHandleServiceImpl alarmHandleService;
     @GetMapping("/doPush")
         public void doPush(String startTimeStr, String endTimeStr) {
-        List<TableMapping> mappings = dataPushStatisticService.getTableMappings();
-        dataPushStatisticService.doPush( startTimeStr, endTimeStr,mappings );
+        //List<TableMapping> mappings = dataPushStatisticService.getTableMappings();
+        dataPushStatisticService.pushDataToRemoteServerStatisticHour();
     }
 
     @GetMapping("/handle")

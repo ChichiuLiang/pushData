@@ -15,7 +15,7 @@ import java.util.Map;
 public class QuickQueryService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public Map<String, String> queryForMapString(String sql) {
+    public Map<String, String>  queryForMapString(String sql) {
         final Map<String, String> resultMap = new HashMap<>();
 
         jdbcTemplate.query(sql, new RowCallbackHandler() {

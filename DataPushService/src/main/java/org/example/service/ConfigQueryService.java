@@ -212,7 +212,7 @@ public class ConfigQueryService implements CommandLineRunner {
         //远程未注册
         String insertRemoteInfo = localDeviceIdToInsertRemoteInfoMap.getOrDefault(deviceId.toString(), null);
         if(insertRemoteInfo != null){
-            log.error("本地设备ID:{} 在本地设备ID未在本地数据库map找到 InsertRemoteInfo", deviceId);
+            //log.error("本地设备ID:{} 在本地设备ID未在本地数据库map找到 InsertRemoteInfo", deviceId);
             String[] insertRemoteInfoArray = insertRemoteInfo.split("==");
             if(insertRemoteInfoArray.length == 5){
                 String barCode = insertRemoteInfoArray[0];

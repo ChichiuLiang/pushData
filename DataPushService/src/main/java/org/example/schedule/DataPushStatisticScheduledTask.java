@@ -20,10 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Component
 public class DataPushStatisticScheduledTask {
@@ -41,7 +40,7 @@ public class DataPushStatisticScheduledTask {
     private ConfigQueryService configQueryService;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    @Scheduled(cron = "0 */15 * * * ?")  // 每15分钟       执行一次
+    //@Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -54,11 +53,33 @@ public class DataPushStatisticScheduledTask {
         String preTimeStart = startTime.minusDays(1).format(formatter);
 
         List<TableMapping> mappings = getTableMappings();
-        doPush(startTimeStr, endTimeStr, mappings);
-        doPush(preTimeStart, startTimeStr, mappings);
+        doPush(startTimeStr, endTimeStr, mappings,new ArrayList<>());
+        doPush(preTimeStart, startTimeStr, mappings,new ArrayList<>());
     }
 
-    @Scheduled(cron = "0 */5 * * * ?")  // 每15分钟       执行一次
+    /**
+     * 测试小时表
+     */
+    //@Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
+    public void pushDataToRemoteServerStatisticHour() {
+
+        LocalDateTime nowTime = LocalDateTime.now();
+        LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endTime = nowTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String startTimeStr = startTime.format(formatter);
+        String endTimeStr = endTime.format(formatter);
+
+        String preTimeStart = startTime.minusDays(1).format(formatter);
+        String sql = "SELECT * FROM iems_app.table_mapping where is_on =3 ";
+        List<TableMapping> mappings = getTableMappings(sql);
+        List<Integer> deviceIds = new ArrayList<>(Arrays.asList(356,358));
+        doPush(startTimeStr, endTimeStr, mappings,deviceIds);
+        doPush(preTimeStart, startTimeStr, mappings,deviceIds);
+    }
+
+
+    //@Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
     public void pushAlarmDataToRemoteServer() {
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
@@ -69,11 +90,11 @@ public class DataPushStatisticScheduledTask {
         String preTimeStart = startTime.minusDays(1).format(formatter);
         String sql = "SELECT * FROM iems_app.table_mapping where is_on =2 ";
         List<TableMapping> mappings = getTableMappings(sql);
-        doPush(startTimeStr, endTimeStr, mappings);
-        doPush(preTimeStart, startTimeStr, mappings);
+        doPush(startTimeStr, endTimeStr, mappings,new ArrayList<>());
+        doPush(preTimeStart, startTimeStr, mappings,new ArrayList<>());
     }
 
-    public void doPush(String startTimeStr, String endTimeStr,List<TableMapping> mappings){
+    public void doPush(String startTimeStr, String endTimeStr,List<TableMapping> mappings,List<Integer> deviceIds){
         if (mappings == null || mappings.isEmpty()) {
             log.warn("没有找到表映射配置，跳过数据推送");
             return;
@@ -89,7 +110,7 @@ public class DataPushStatisticScheduledTask {
             String convertTextFields = mapping.getConvertTextFields();
             String excludeCondition = mapping.getExcludeCondition();
             // 从源表查询数据
-            List<Map<String, Object>> data = queryData(sourceTable, sourceFieldList,dateField,startTimeStr, endTimeStr,convertTextFields,excludeCondition);
+            List<Map<String, Object>> data = queryData(sourceTable, sourceFieldList,dateField,startTimeStr, endTimeStr,convertTextFields,excludeCondition,deviceIds);
             if (data == null || data.isEmpty()) {
                 log.warn("表 [{}] 无数据需要推送", sourceTable);
                 continue;
@@ -121,6 +142,16 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
+    public List<TableMapping> getTableMappingsV2() {
+        try {
+            String sql = "SELECT * FROM iems_app.table_mapping where is_on =3 ";
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TableMapping.class));
+        } catch (Exception e) {
+            log.error("查询表映射失败: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
 
     public List<TableMapping> getTableMappings(String sql) {
         try {
@@ -131,7 +162,7 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    private List<Map<String, Object>> queryData(String tableName, List<String> sourceFields, String dateField,String startTime, String endTime,String convertTextFields,String excludeCondition) {
+    private List<Map<String, Object>> queryData(String tableName, List<String> sourceFields, String dateField,String startTime, String endTime,String convertTextFields,String excludeCondition,List<Integer> deviceIds) {
         String fields = String.join(",", sourceFields);
         if(convertTextFields != null && !convertTextFields.isEmpty()){
             String[] convertArr = convertTextFields.split(",");
@@ -144,6 +175,16 @@ public class DataPushStatisticScheduledTask {
         }
 
         String sql = "SELECT " + fields + " FROM " + tableName + " WHERE " + dateField + " BETWEEN '" + startTime + "' AND '" + endTime + "'"  ;
+
+        if(deviceIds != null && !deviceIds.isEmpty()){
+            //添加设备id条件
+            String devIds = deviceIds.stream()
+                    .map(String::valueOf) // 将每个Integer转换为String
+                    .collect(Collectors.joining(",")); // 使用逗号作为分隔符连接所有字符串
+            sql  = sql + " AND device_id in ("+devIds+") ";
+        }
+
+
         if(excludeCondition != null && !excludeCondition.isEmpty()){
             //添加排除条件
             sql  = sql + " AND "+ excludeCondition;
@@ -156,6 +197,11 @@ public class DataPushStatisticScheduledTask {
                //添加排除条件
                sql  = sql + " WHERE "+ excludeCondition;
             }
+        }
+
+        if(tableName.equals("energy_station_fault_record")){
+            //报警只传最后50条记录
+            sql  = sql + " order by id desc limit 50 ";
         }
 
         try {
@@ -233,7 +279,7 @@ public class DataPushStatisticScheduledTask {
         }
     }
 
-    @Scheduled(cron = "0 0 */16 * * ?")
+    //@Scheduled(cron = "0 0 */16 * * ?")
     public void initDataPushConfigQuery() {
         configQueryService.init();
     }

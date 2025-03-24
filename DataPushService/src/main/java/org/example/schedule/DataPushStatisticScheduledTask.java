@@ -39,6 +39,9 @@ public class DataPushStatisticScheduledTask {
     @Autowired
     private ConfigQueryService configQueryService;
 
+    @Value("${pushLimit}")
+    private Integer pushLimit;
+
     // 定时任务，定期查询数据并推送到远程服务器
     @Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {

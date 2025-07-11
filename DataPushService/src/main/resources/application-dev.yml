@@ -8,11 +8,14 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
   application:
     name: service-DataPush
+#  redis:
+#    host: 110.41.51.96
+#    port: 7523
   redis:
-    host: 116.205.171.117
-    port: 7523
+    host: localhost
+    port: 6380
   datasource:
-    url: jdbc:mysql://116.205.171.117:7522/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    url: jdbc:mysql://110.41.51.96:7522/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
 #    url: jdbc:mysql://localhost:3306/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
 #  redis:
 #    host: 116.205.171.117
@@ -21,8 +24,13 @@ spring:
 #    url: jdbc:mysql://116.205.171.117:7508/iems_app?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
     password: iems.gree
-    driver-class-name: com.mysql.jdbc.Driver
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
 eureka:
   client:

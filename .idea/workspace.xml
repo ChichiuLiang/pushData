@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改不涉及deviceId的数据库表回传逻辑">
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/handler/ClientWebSocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/handler/PushDataWebSocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/WebSocketService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/WebSocketTestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/SingletonWebSocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/WebSocketConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +97,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.EurekaStartApplication.executor": "Run",
-    "Spring Boot.PushStartApplication.executor": "Debug",
+    "Spring Boot.PushStartApplication.executor": "Run",
     "Spring Boot.ZuulStartApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
@@ -101,7 +117,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "vcs.Git",
     "spring.configuration.checksum": "138767469623632e16fcf94e1ac025a6",
     "vue.rearranger.settings.migration": "true"
   }
@@ -257,6 +273,12 @@
       <workItem from="1740555270340" duration="18560000" />
       <workItem from="1740988302337" duration="1050000" />
       <workItem from="1741049697695" duration="2341000" />
+      <workItem from="1742807378115" duration="2159000" />
+      <workItem from="1744787969840" duration="624000" />
+      <workItem from="1745416577789" duration="1824000" />
+      <workItem from="1745828143749" duration="600000" />
+      <workItem from="1749606481007" duration="73000" />
+      <workItem from="1752200749305" duration="18083000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -458,7 +480,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740616273587</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="修改不涉及deviceId的数据库表回传逻辑">
+      <option name="closed" value="true" />
+      <created>1742807745691</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1742807745692</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,12 +527,12 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>242</line>
+          <line>253</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>244</line>
+          <line>255</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -517,63 +547,28 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>241</line>
+          <line>252</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>223</line>
+          <line>234</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>237</line>
+          <line>248</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>268</line>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>270</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>271</line>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>272</line>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>273</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>113</line>
+          <line>124</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
           <line>208</line>
           <option name="timeStamp" value="103" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>269</line>
-          <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>266</line>
-          <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java</url>
@@ -717,7 +712,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>201</line>
+          <line>212</line>
           <option name="timeStamp" value="277" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -757,22 +752,22 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>231</line>
+          <line>242</line>
           <option name="timeStamp" value="325" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>230</line>
+          <line>241</line>
           <option name="timeStamp" value="326" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>243</line>
+          <line>254</line>
           <option name="timeStamp" value="327" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java</url>
-          <line>119</line>
+          <line>130</line>
           <option name="timeStamp" value="328" />
         </line-breakpoint>
         <breakpoint type="java-exception">

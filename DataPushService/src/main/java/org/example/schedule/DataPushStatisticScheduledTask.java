@@ -1,10 +1,13 @@
 package org.example.schedule;
 
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
 import org.example.entity.TableMapping;
 import org.example.service.ConfigQueryService;
+import org.example.service.WebSocketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -39,8 +43,12 @@ public class DataPushStatisticScheduledTask {
     @Autowired
     private ConfigQueryService configQueryService;
 
+    private WebSocketService webSocketService;
+
     @Value("${pushLimit}")
     private Integer pushLimit;
+//    @Resource
+//    private RabbitTemplate rabbitTemplate;
 
     // 定时任务，定期查询数据并推送到远程服务器
     @Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
@@ -257,25 +265,24 @@ public class DataPushStatisticScheduledTask {
      * @param transformedRow 转换后的数据
      * @param uniqueFields 唯一字段
      */
-    private void pushToRemoteServer(String destinationTable, Map<String, Object> transformedRow, String uniqueFields,String destinationFields) {
-        // 将转换后的数据通过HTTP请求推送到远程接收服务
-        String url = remoteReceiveUrl + "/statistic";
-        transformedRow.put("destination_table", destinationTable);  // 将目标表名传递给接收服务
-        transformedRow.put("unique_fields", uniqueFields);
-        transformedRow.put("destination_fields",destinationFields);
-        // 将唯一字段传递给接收服务
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(transformedRow);
+    private void pushToRemoteServer(String destinationTable, Map<String, Object> transformedRow, String uniqueFields, String destinationFields) {
         try {
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
-            if (response.getStatusCode() == HttpStatus.OK) {
-                //log.info("数据成功推送到接收服务: {}", response.getBody());
-            } else {
-                log.warn("定时任务推送统计数据失败，状态码: {}", response.getStatusCode());
-            }
+            // 构建发送的消息体
+            Map<String, Object> messageBody = new HashMap<>(transformedRow);
+            messageBody.put("destination_table", destinationTable);
+            messageBody.put("unique_fields", uniqueFields);
+            messageBody.put("destination_fields", destinationFields);
+
+            // 转换为 JSON 字符串
+            String jsonMessage = JSONObject.fromObject(messageBody).toString();
+
+            // 使用 RabbitMQ 发送消息到队列 receiveData-statistic
+            webSocketService.sendMessage(jsonMessage);
         } catch (Exception e) {
-            log.error("定时任务推送统计数据失败: {} {}  ", e.getMessage(), transformedRow.toString());
+            log.error("通过 RabbitMQ 推送统计数据失败: {}", e.getMessage(), e);
         }
     }
+
 
     @Scheduled(cron = "0 0 */16 * * ?")
     public void initDataPushConfigQuery() {

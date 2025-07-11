@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.example.utils.ReplaceGatewayUtil;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,8 +23,13 @@ public class PushDataRedisService {
     private RestTemplate restTemplate;
     @Value("${energyName}")
     private String energyName;
+//    @Resource
+//    private RabbitTemplate rabbitTemplate;
+    @Resource
+    private WebSocketService webSocketService;
 
-    public void pushData(String context, String topic, String url ) {
+
+    public void pushData(String context, String topic, String url) {
         // 使用ConcurrentHashMap增强线程安全性
         ConcurrentHashMap<String, String> dataMap = new ConcurrentHashMap<>();
 
@@ -31,8 +37,7 @@ public class PushDataRedisService {
             // 能源站网关号映射,将社区的网关转成其它的
             topic = ReplaceGatewayUtil.replaceGatewayIds(topic);
             context = ReplaceGatewayUtil.replaceGatewayIds(context);
-        }
-        else if ("shangJiaoDa".equals(energyName)) {
+        } else if ("shangJiaoDa".equals(energyName)) {
             // 能源站网关号映射,将社区的网关转成其它的
             topic = ReplaceGatewayUtil.replaceGatewayIdsBySJD(topic);
             context = ReplaceGatewayUtil.replaceGatewayIdsBySJD(context);
@@ -43,20 +48,11 @@ public class PushDataRedisService {
 
         HttpEntity<ConcurrentHashMap<String, String>> httpEntity = new HttpEntity<>(dataMap);
 
-        try {
-            // 异步处理网络请求（假设你已经配置了异步RestTemplate）
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+        String jsonMessage = JSONObject.fromObject(dataMap).toString();
 
-            // 检查响应状态码是否为200 OK或其他成功的状态码
-            if (response.getStatusCode().is2xxSuccessful()) {
-                //log.info("Data pushed successfully.");
-            } else {
-                log.warn("Failed to push data. Status code: {}", response.getStatusCode());
-            }
-        } catch (Exception e) {
-            log.error("Error pushing data to {}: {} - Topic: {}, Context: {}", url, e.getMessage(), topic, context);
-        }
+        webSocketService.sendMessage(jsonMessage);
     }
+
 
 
 }

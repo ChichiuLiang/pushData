@@ -5,6 +5,7 @@ import net.sf.json.JSONObject;
 import org.example.model.AlarmConfigModel;
 import org.example.model.HomeInfoModel;
 import org.example.utils.ReplaceGatewayUtil;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -25,29 +26,38 @@ public class PushAlarmService {
     private String energyName;
     @Value("${remoteReceiveUrl}")
     private String remoteReceiveUrl;
+    private WebSocketService webSocketService;
+//    @Resource
+//    private RabbitTemplate rabbitTemplate;
 
-    public void pushAlarm(AlarmConfigModel model, HomeInfoModel homeInfoModel,String convertedDeviceId) {
-        String url = remoteReceiveUrl + "/alarms";
+    public void pushAlarm(AlarmConfigModel model, HomeInfoModel homeInfoModel, String convertedDeviceId) {
         String barCode = model.getBarCode();
-        if("shequ".equals(energyName)){
-            //能源站映射,将社区的网关转成其它的
+        if ("shequ".equals(energyName)) {
             barCode = ReplaceGatewayUtil.replaceGatewayIds(barCode);
-        }
-        else if("shangJiaoDa".equals(energyName)){
-            //上交大
+        } else if ("shangJiaoDa".equals(energyName)) {
             barCode = ReplaceGatewayUtil.replaceGatewayIdsBySJD(barCode);
         }
         model.setBarCode(barCode);
         homeInfoModel.setBarCode(barCode);
         model.setDeviceId(convertedDeviceId);
-        try {
-            HttpEntity<AlarmConfigModel> httpEntity =  new HttpEntity<AlarmConfigModel>(model);
 
-            ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JSONObject.class);
-            log.info("告警数据推送结果:{} {}",response.toString(),model.toString());
-        }catch (Exception e){
-            log.error("告警数据推送异常:{} pushAlarm(AlarmConfigModel model{}, HomeInfoModel homeInfoModel{},String convertedDeviceId){} ",e.getMessage(),model,homeInfoModel,convertedDeviceId);
-        }
+//        try {
+            // 构建发送的消息体
+            Map<String, Object> messageBody = new HashMap<>();
+            messageBody.put("alarm", model);
+            messageBody.put("homeInfo", homeInfoModel);
+
+            // 转换为 JSON 字符串
+           String jsonMessage = JSONObject.fromObject(messageBody).toString();
+            webSocketService.sendMessage(jsonMessage);
+//            // 使用 RabbitMQ 发送消息到队列 alarms-queue
+//            rabbitTemplate.convertAndSend("alarm-msg", jsonMessage); // 队列名或路由键
+//
+//            log.info("告警数据已通过 RabbitMQ 推送至队列: alarms");
+//        } catch (Exception e) {
+//            log.error("通过 RabbitMQ 推送告警数据失败: {}", e.getMessage(), e);
+//        }
     }
+
 
 }

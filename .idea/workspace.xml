@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="修改不涉及deviceId的数据库表回传逻辑">
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/handler/ClientWebSocketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/handler/PushDataWebSocketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/WebSocketService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/WebSocketTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/SingletonWebSocketClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/WebSocketConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" afterDir="false" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="websocket发送成功！">
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +262,7 @@
       <workItem from="1745416577789" duration="1824000" />
       <workItem from="1745828143749" duration="600000" />
       <workItem from="1749606481007" duration="73000" />
-      <workItem from="1752200749305" duration="18083000" />
+      <workItem from="1752200749305" duration="18453000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -488,7 +472,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742807745692</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="websocket发送成功！">
+      <option name="closed" value="true" />
+      <created>1752232559680</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1752232559680</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -515,7 +507,8 @@
     <MESSAGE value="修改网关映射" />
     <MESSAGE value="修改报警" />
     <MESSAGE value="修改不涉及deviceId的数据库表回传逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改不涉及deviceId的数据库表回传逻辑" />
+    <MESSAGE value="websocket发送成功！" />
+    <option name="LAST_COMMIT_MESSAGE" value="websocket发送成功！" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

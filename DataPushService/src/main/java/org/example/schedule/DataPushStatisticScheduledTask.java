@@ -42,7 +42,7 @@ public class DataPushStatisticScheduledTask {
 
     @Autowired
     private ConfigQueryService configQueryService;
-
+    @Autowired
     private WebSocketService webSocketService;
 
     @Value("${pushLimit}")

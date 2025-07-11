@@ -99,15 +99,15 @@ public class PersistentWebSocketClient {
         }).start();
     }
 
-    public void destroy() {
-        running = false;
-        scheduler.shutdownNow();
-        if (session != null && session.isOpen()) {
-            try {
-                session.close();
-            } catch (IOException e) {
-                log.error("Error closing session", e);
+            public void destroy() {
+                running = false;
+                scheduler.shutdownNow();
+                if (session != null && session.isOpen()) {
+                    try {
+                        session.close();
+                    } catch (IOException e) {
+                        log.error("Error closing session", e);
+                    }
+                }
             }
-        }
-    }
 }

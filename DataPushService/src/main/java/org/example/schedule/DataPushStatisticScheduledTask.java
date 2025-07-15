@@ -53,7 +53,7 @@ public class DataPushStatisticScheduledTask {
 //    private RabbitTemplate rabbitTemplate;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    @Scheduled(cron = "0 */1 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */4 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -73,7 +73,7 @@ public class DataPushStatisticScheduledTask {
     /**
      * 测试小时表
      */
-    @Scheduled(cron = "0 */1 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */4 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServerStatisticHour() {
 
         LocalDateTime nowTime = LocalDateTime.now();

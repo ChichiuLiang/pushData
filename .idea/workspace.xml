@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="websocket发送成功！">
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="解决websocket重连后的问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/PushStartApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/TaskSchedulerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/TaskSchedulerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/DataPushStatisticScheduledTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushAlarmService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/WebSocketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/WebSocketService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/WebSocketTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/web/WebSocketTestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjd.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjddev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjddev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjdnwct.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sjdnwct.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-sq.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataReceiveService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataReceiveService/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,48 +73,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.DataPushService [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DataPushService [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.EurekaService [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.EurekaService [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.IEMS-energyDataReturn [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.IEMS-energyDataReturn [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.IEMS-energyDataReturn [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.EurekaStartApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PushStartApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ZuulStartApplication.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Gree Project/EneryDataReturn/DataPushService/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;138767469623632e16fcf94e1ac025a6&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.DataPushService [clean].executor": "Run",
+    "Maven.DataPushService [package].executor": "Run",
+    "Maven.DataPushService [verify].executor": "Run",
+    "Maven.EurekaService [clean].executor": "Run",
+    "Maven.EurekaService [package].executor": "Run",
+    "Maven.IEMS-energyDataReturn [clean].executor": "Run",
+    "Maven.IEMS-energyDataReturn [install].executor": "Run",
+    "Maven.IEMS-energyDataReturn [mvn,clean,package...].executor": "Run",
+    "Maven.IEMS-energyDataReturn [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.EurekaStartApplication.executor": "Run",
+    "Spring Boot.PushStartApplication.executor": "Debug",
+    "Spring Boot.ZuulStartApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Gree Project/EneryDataReturn/DataPushService/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "vcs.Git",
+    "spring.configuration.checksum": "138767469623632e16fcf94e1ac025a6",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -141,6 +143,39 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.PushStartApplication">
+    <configuration name="IEMS-energyDataReturn [mvn,clean,package...]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="mvn" />
+                <option value="clean" />
+                <option value="package" />
+                <option value="-DskipTests" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="EurekaStartApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="EurekaService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.EurekaStartApplication" />
@@ -177,6 +212,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Maven.IEMS-energyDataReturn [mvn,clean,package...]" />
       <item itemvalue="Spring Boot.EurekaStartApplication" />
       <item itemvalue="Spring Boot.PushStartApplication" />
       <item itemvalue="Spring Boot.ReceiveStartApplication" />
@@ -272,7 +308,9 @@
       <workItem from="1745828143749" duration="600000" />
       <workItem from="1749606481007" duration="73000" />
       <workItem from="1752200749305" duration="28584000" />
-      <workItem from="1752467451497" duration="23019000" />
+      <workItem from="1752467451497" duration="29716000" />
+      <workItem from="1752565271448" duration="1363000" />
+      <workItem from="1752567416761" duration="7327000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -506,7 +544,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752232734167</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="解决websocket重连后的问题">
+      <option name="closed" value="true" />
+      <created>1752545723459</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1752545723459</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +580,8 @@
     <MESSAGE value="修改报警" />
     <MESSAGE value="修改不涉及deviceId的数据库表回传逻辑" />
     <MESSAGE value="websocket发送成功！" />
-    <option name="LAST_COMMIT_MESSAGE" value="websocket发送成功！" />
+    <MESSAGE value="解决websocket重连后的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决websocket重连后的问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

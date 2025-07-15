@@ -22,7 +22,7 @@ spring:
 
     username: root
     password: iems.gree
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 eureka:
@@ -38,3 +38,9 @@ remoteReceiveUrl: http://service.iems.gree.com:8092/receive
 
 energyName: shangJiaoDa
 pushLimit: 100
+
+websocket:
+  endpoints:
+    - ws://service.iems.gree.com:8092/ws/data/alarm
+    - ws://service.iems.gree.com:8092/ws/data/statistic
+    - ws://service.iems.gree.com:8092/ws/data/redis

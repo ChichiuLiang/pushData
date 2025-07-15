@@ -2,6 +2,7 @@ package org.example.websocket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
@@ -22,11 +23,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PersistentWebSocketClient {
 
     // ====================== 配置常量 ======================
-    private static final String[] ENDPOINTS = {
-            "ws://localhost:8092/ws/data/alarm",
-            "ws://localhost:8092/ws/data/statistic",
-            "ws://localhost:8092/ws/data/redis"
-    };
+    // 使用 @Value 注解从配置文件中读取端点列表
+    //@Value("#{'${websocket.endpoints}'.split(',')}")
+    private List<String> ENDPOINTS = Arrays.asList(
+            "ws://service.iems.gree.com:8092/ws/data/alarm",
+            "ws://service.iems.gree.com:8092/ws/data/statistic",
+            "ws://service.iems.gree.com:8092/ws/data/redis"
+    );
 
     // 队列配置
     private static final int INITIAL_QUEUE_CAPACITY = 2000;
@@ -553,16 +556,16 @@ public class PersistentWebSocketClient {
 
     // ====================== 便捷发送方法 ======================
     public boolean sendAlarm(String message) {
-        return sendToEndpoint(ENDPOINTS[0], message, SendPriority.NORMAL);
+        return sendToEndpoint(ENDPOINTS.get(0), message, SendPriority.NORMAL);
     }
 
     public boolean sendStatistic(String message) {
         // 统计信息通常较为重要，使用高优先级
-        return sendToEndpoint(ENDPOINTS[1], message, SendPriority.HIGH);
+        return sendToEndpoint(ENDPOINTS.get(1), message, SendPriority.HIGH);
     }
 
     public boolean sendRedis(String message) {
-        return sendToEndpoint(ENDPOINTS[2], message, SendPriority.NORMAL);
+        return sendToEndpoint(ENDPOINTS.get(2), message, SendPriority.NORMAL);
     }
 
     // ====================== 监控与统计 ======================

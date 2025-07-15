@@ -37,3 +37,9 @@ remoteReceiveUrl: http://service.iems.gree.com:8092/receive
 
 energyName: shequ
 pushLimit: 100
+
+websocket:
+  endpoints:
+    - ws://service.iems.gree.com:8092/ws/data/alarm
+    - ws://service.iems.gree.com:8092/ws/data/statistic
+    - ws://service.iems.gree.com:8092/ws/data/redis

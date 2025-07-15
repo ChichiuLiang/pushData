@@ -6,6 +6,8 @@ import org.example.model.AlarmConfigModel;
 import org.example.model.HomeInfoModel;
 import org.example.utils.ReplaceGatewayUtil;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.example.websocket.PersistentWebSocketClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,7 +28,8 @@ public class PushAlarmService {
     private String energyName;
     @Value("${remoteReceiveUrl}")
     private String remoteReceiveUrl;
-    private WebSocketService webSocketService;
+    @Autowired
+    private PersistentWebSocketClient webSocketService;
 //    @Resource
 //    private RabbitTemplate rabbitTemplate;
 
@@ -49,7 +52,7 @@ public class PushAlarmService {
 
             // 转换为 JSON 字符串
            String jsonMessage = JSONObject.fromObject(messageBody).toString();
-            webSocketService.sendMessage(jsonMessage);
+            webSocketService.sendAlarm(jsonMessage);
 //            // 使用 RabbitMQ 发送消息到队列 alarms-queue
 //            rabbitTemplate.convertAndSend("alarm-msg", jsonMessage); // 队列名或路由键
 //

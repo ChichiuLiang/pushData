@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.example.utils.ReplaceGatewayUtil;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.example.websocket.PersistentWebSocketClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -25,8 +27,8 @@ public class PushDataRedisService {
     private String energyName;
 //    @Resource
 //    private RabbitTemplate rabbitTemplate;
-    @Resource
-    private WebSocketService webSocketService;
+    @Autowired
+    private PersistentWebSocketClient webSocketService;
 
 
     public void pushData(String context, String topic, String url) {
@@ -50,7 +52,7 @@ public class PushDataRedisService {
 
         String jsonMessage = JSONObject.fromObject(dataMap).toString();
 
-        webSocketService.sendMessage(jsonMessage);
+        webSocketService.sendRedis(jsonMessage);
     }
 
 

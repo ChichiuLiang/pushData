@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.example.entity.TableMapping;
 import org.example.service.ConfigQueryService;
-import org.example.service.WebSocketService;
+//import org.example.service.WebSocketService;
+import org.example.websocket.PersistentWebSocketClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -43,7 +44,8 @@ public class DataPushStatisticScheduledTask {
     @Autowired
     private ConfigQueryService configQueryService;
     @Autowired
-    private WebSocketService webSocketService;
+    private PersistentWebSocketClient webSocketService;
+
 
     @Value("${pushLimit}")
     private Integer pushLimit;
@@ -51,7 +53,7 @@ public class DataPushStatisticScheduledTask {
 //    private RabbitTemplate rabbitTemplate;
 
     // 定时任务，定期查询数据并推送到远程服务器
-    @Scheduled(cron = "0 */5 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */1 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServer() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -71,7 +73,7 @@ public class DataPushStatisticScheduledTask {
     /**
      * 测试小时表
      */
-    @Scheduled(cron = "0 */2 * * * ?")  // 每5分钟       执行一次
+    @Scheduled(cron = "0 */1 * * * ?")  // 每5分钟       执行一次
     public void pushDataToRemoteServerStatisticHour() {
 
         LocalDateTime nowTime = LocalDateTime.now();
@@ -90,7 +92,7 @@ public class DataPushStatisticScheduledTask {
     }
 
 
-    @Scheduled(cron = "0 */2 * * * ?")  // 每2分钟       执行一次
+    @Scheduled(cron = "0 */1 * * * ?")  // 每2分钟       执行一次
     public void pushAlarmDataToRemoteServer() {
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime startTime = nowTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
@@ -277,7 +279,7 @@ public class DataPushStatisticScheduledTask {
             String jsonMessage = JSONObject.fromObject(messageBody).toString();
 
             // 使用 RabbitMQ 发送消息到队列 receiveData-statistic
-            webSocketService.sendMessage(jsonMessage);
+            webSocketService.sendStatistic(jsonMessage);
         } catch (Exception e) {
             log.error("通过 RabbitMQ 推送统计数据失败: {}", e.getMessage(), e);
         }

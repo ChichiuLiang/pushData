@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="重连后虚拟内存飙升">
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" afterDir="false" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="简化">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
     </list>
@@ -305,7 +304,7 @@
       <workItem from="1752565271448" duration="1363000" />
       <workItem from="1752567416761" duration="13736000" />
       <workItem from="1752642778171" duration="843000" />
-      <workItem from="1752643872993" duration="3784000" />
+      <workItem from="1752643872993" duration="7945000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -563,7 +562,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752645409372</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="简化">
+      <option name="closed" value="true" />
+      <created>1752647815025</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1752647815025</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,7 +601,8 @@
     <MESSAGE value="解决websocket重连后的问题" />
     <MESSAGE value="删除其他模块" />
     <MESSAGE value="重连后虚拟内存飙升" />
-    <option name="LAST_COMMIT_MESSAGE" value="重连后虚拟内存飙升" />
+    <MESSAGE value="简化" />
+    <option name="LAST_COMMIT_MESSAGE" value="简化" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

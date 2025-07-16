@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="删除其他模块">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="重连后虚拟内存飙升">
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/ConfigQueryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmHandleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmHandleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,7 +305,7 @@
       <workItem from="1752565271448" duration="1363000" />
       <workItem from="1752567416761" duration="13736000" />
       <workItem from="1752642778171" duration="843000" />
-      <workItem from="1752643872993" duration="1483000" />
+      <workItem from="1752643872993" duration="3784000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -558,7 +555,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752580657401</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="重连后虚拟内存飙升">
+      <option name="closed" value="true" />
+      <created>1752645409372</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1752645409372</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -588,7 +593,8 @@
     <MESSAGE value="websocket发送成功！" />
     <MESSAGE value="解决websocket重连后的问题" />
     <MESSAGE value="删除其他模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="删除其他模块" />
+    <MESSAGE value="重连后虚拟内存飙升" />
+    <option name="LAST_COMMIT_MESSAGE" value="重连后虚拟内存飙升" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

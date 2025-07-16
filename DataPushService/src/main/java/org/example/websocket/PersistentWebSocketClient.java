@@ -95,7 +95,7 @@ public class PersistentWebSocketClient {
                 if (backupQueue != null && !backupQueue.offer(message)) {
                     log.warn("Backup queue for {} is full. Discarding message: {}", endpoint, message);
                 } else {
-                    log.warn("Main queue full, moved message to backup queue for {}", endpoint);
+                    //log.warn("Main queue full, moved message to backup queue for {}", endpoint);
                 }
             } else {
                 //log.info("Message queued for {}: {}", endpoint, message);

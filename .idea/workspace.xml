@@ -304,7 +304,7 @@
       <workItem from="1752565271448" duration="1363000" />
       <workItem from="1752567416761" duration="13736000" />
       <workItem from="1752642778171" duration="843000" />
-      <workItem from="1752643872993" duration="7945000" />
+      <workItem from="1752643872993" duration="9966000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -570,7 +570,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752647815025</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="简化">
+      <option name="closed" value="true" />
+      <created>1752652865149</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1752652865149</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -29,19 +29,25 @@ public class PersistentWebSocketClient {
     private final Map<String, BlockingQueue<String>> messageQueues = new ConcurrentHashMap<>();
     private final ScheduledExecutorService messageProcessor = Executors.newSingleThreadScheduledExecutor();
 
-    private static final int QUEUE_MAX_SIZE = 2000; // 队列最大大小
+    private static final int QUEUE_MAX_SIZE = 3000; // 队列最大大小
+    private final Map<String, BlockingQueue<String>> backupMessageQueues = new ConcurrentHashMap<>();
+    private static final int BACKUP_QUEUE_MAX_SIZE = 1000; // 备用队列最大容量
+    private final ScheduledExecutorService backupMessageProcessor = Executors.newSingleThreadScheduledExecutor();
+
 
     @Autowired
     public PersistentWebSocketClient(StandardWebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
         initializeConnections();
         startMessageProcessing();
+        startBackupMessageProcessing(); // 启动备用队列处理任务
     }
 
     private void initializeConnections() {
         for (String endpoint : ENDPOINTS) {
             connect(endpoint);
             messageQueues.put(endpoint, new ArrayBlockingQueue<>(QUEUE_MAX_SIZE));
+            backupMessageQueues.put(endpoint, new ArrayBlockingQueue<>(BACKUP_QUEUE_MAX_SIZE)); // 初始化备用队列
         }
     }
 
@@ -58,6 +64,10 @@ public class PersistentWebSocketClient {
 
     private void startMessageProcessing() {
         messageProcessor.scheduleAtFixedRate(this::processMessages, 0, 100, TimeUnit.MILLISECONDS);
+    }
+
+    private void startBackupMessageProcessing() {
+        backupMessageProcessor.scheduleAtFixedRate(this::processBackupMessages, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     private void processMessages() {
@@ -77,16 +87,56 @@ public class PersistentWebSocketClient {
 
     public void sendMessage(String endpoint, String message) {
         BlockingQueue<String> queue = messageQueues.get(endpoint);
+        BlockingQueue<String> backupQueue = backupMessageQueues.get(endpoint);
+
         if (queue != null) {
             if (!queue.offer(message)) {
-                log.warn("Message queue for {} is full. Discarding message: {}", endpoint, message);
+                // 主队列满，尝试放入备用队列
+                if (backupQueue != null && !backupQueue.offer(message)) {
+                    log.warn("Backup queue for {} is full. Discarding message: {}", endpoint, message);
+                } else {
+                    log.warn("Main queue full, moved message to backup queue for {}", endpoint);
+                }
             } else {
-                log.info("Message queued for {}: {}", endpoint, message);
+                //log.info("Message queued for {}: {}", endpoint, message);
             }
         } else {
             log.warn("No active session for {}, message discarded", endpoint);
         }
     }
+
+    private void processBackupMessages() {
+        for (String endpoint : ENDPOINTS) {
+            BlockingQueue<String> mainQueue = messageQueues.get(endpoint);
+            BlockingQueue<String> backupQueue = backupMessageQueues.get(endpoint);
+            WebSocketSession session = activeSessions.get(endpoint);
+
+            if (mainQueue == null || backupQueue == null) continue;
+
+            while (!backupQueue.isEmpty()) {
+                String message = backupQueue.poll();
+                if (message == null) continue;
+
+                // 尝试重新入队主队列
+                if (mainQueue.offer(message)) {
+                    log.debug("Moved message from backup to main queue for {}", endpoint);
+                } else {
+                    // 主队列仍然满，尝试直接发送
+                    if (session != null && session.isOpen()) {
+                        try {
+                            session.sendMessage(new TextMessage(message));
+                            //log.info("Sent message directly from backup queue to {}", endpoint);
+                        } catch (IOException e) {
+                            log.error("Failed to send message from backup queue to {}: {}", endpoint, e.getMessage());
+                        }
+                    } else {
+                        log.warn("Session not open, cannot send message from backup queue to {}", endpoint);
+                    }
+                }
+            }
+        }
+    }
+
 
     // ====================== 便捷发送方法 ======================
     public void sendAlarm(String message) {
@@ -156,8 +206,11 @@ public class PersistentWebSocketClient {
     @PreDestroy
     public void destroy() {
         messageProcessor.shutdownNow();
+        backupMessageProcessor.shutdownNow();
+
         for (String endpoint : ENDPOINTS) {
             cleanupConnection(endpoint);
         }
     }
+
 }

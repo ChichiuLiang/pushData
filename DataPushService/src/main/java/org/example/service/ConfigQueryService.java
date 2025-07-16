@@ -173,6 +173,7 @@ public class ConfigQueryService implements CommandLineRunner {
      * 获取远程设备ID映射
      * @return 设备ID映射
      */
+    //  "52 00 00 00 00 00 00 00 00 00 00 00 00 00 00240222": "1030168",
     public Map<String, String> getRemoteDeviceIdMap() {
         String url = remoteReceiveUrl + "/queryDeviceIdMap";
         return doGetRequest(url, Map.class); // 使用通用的 GET 请求方法

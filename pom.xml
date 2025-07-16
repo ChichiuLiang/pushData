@@ -11,9 +11,6 @@
   <url>http://maven.apache.org</url>
   <modules>
     <module>DataPushService</module>
-    <module>DataReceiveService</module>
-    <module>ZuulService</module>
-    <module>EurekaService</module>
   </modules>
 
   <properties>

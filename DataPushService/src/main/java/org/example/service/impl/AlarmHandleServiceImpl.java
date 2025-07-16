@@ -37,7 +37,7 @@ public class AlarmHandleServiceImpl {
 //    private AlarmMethodsServiceImpl alarmMethodsService;
 
     //"{\"frameType\":\"17\",\"deviceType\":\"1312_V1_1\",\"factorySign\":\"0000\",\"address\":\"13\",\"dataType\":\"3\",\"data\":{\"B0\":0},\"dateTime\":\"2024-12-08 16:41:37\"}"
-    public void  processMessage(String topic,String message) {
+    public void processMessage(String topic,String message) {
         try {
             // 检查消息的合法性
             if (message == null || message.isEmpty()) {
@@ -114,8 +114,6 @@ public class AlarmHandleServiceImpl {
     }
 
 
-
-
     private String generateRedisKey(String barCode, String deviceTypeCode,String dataType, String deviceAddress, String fieldName ) {
         return   "alarm:" + barCode + "_" + deviceTypeCode + "_" + dataType +  "_" +  deviceAddress + "_" + fieldName;
     }
@@ -185,8 +183,5 @@ public class AlarmHandleServiceImpl {
     private boolean isHexadecimal(String value) {
         return value != null && value.startsWith("0x") || value.matches("[0-9a-fA-F]+");
     }
-
-
-
 
 }

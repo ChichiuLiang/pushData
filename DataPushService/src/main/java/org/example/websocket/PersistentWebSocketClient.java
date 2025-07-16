@@ -24,7 +24,7 @@ public class PersistentWebSocketClient {
 
     // ====================== 配置常量 ======================
     // 使用 @Value 注解从配置文件中读取端点列表
-    //@Value("#{'${websocket.endpoints}'.split(',')}")
+    //@Value("#{'${websocket.endpoints}'.split(',')}") // Uncomment this if you want to read endpoints from application.properties
     private List<String> ENDPOINTS = Arrays.asList(
             "ws://service.iems.gree.com:8092/ws/data/alarm",
             "ws://service.iems.gree.com:8092/ws/data/statistic",
@@ -72,7 +72,6 @@ public class PersistentWebSocketClient {
     private final Map<String, AtomicLong> failureCounters = new ConcurrentHashMap<>();
 
     private final Map<String, ReentrantLock> sendLocks = new ConcurrentHashMap<>();
-
 
     @Autowired
     public PersistentWebSocketClient(StandardWebSocketClient webSocketClient,
@@ -155,10 +154,13 @@ public class PersistentWebSocketClient {
             return;
         }
 
+        // 取消之前的重连任务
         cancelReconnectTask(endpoint);
-        reconnectAttempts.get(endpoint).set(attempt);
 
-        //log.info("Attempting to connect to {} (attempt {}/{})", endpoint, attempt + 1, MAX_RECONNECT_ATTEMPTS);
+        // 清理之前的会话
+        cleanupConnection(endpoint);
+
+        reconnectAttempts.get(endpoint).set(attempt);
 
         try {
             URI uri = new URI(endpoint);
@@ -167,8 +169,8 @@ public class PersistentWebSocketClient {
             // 同步调用，等待连接结果
             WebSocketSession session = webSocketClient.doHandshake(handler, new WebSocketHttpHeaders(), uri).get(10, TimeUnit.SECONDS);
 
-            // 如果到这里说明连接成功了，但我们还是需要等待 afterConnectionEstablished 回调
-            //log.info("Handshake completed for {}, waiting for connection establishment...", endpoint);
+            // 如果到这里说明连接成功了
+            log.info("Handshake completed for {}, waiting for connection establishment...", endpoint);
 
         } catch (TimeoutException e) {
             log.error("Connection timeout for {}: {}", endpoint, e.getMessage());
@@ -184,7 +186,7 @@ public class PersistentWebSocketClient {
         log.warn("Scheduling reconnection in {}ms for {} (attempt will be {})", delay, endpoint, attempt + 1);
 
         ScheduledFuture<?> reconnectTask = taskScheduler.schedule(() -> {
-            //log.info("Executing scheduled reconnection for {} (attempt {})", endpoint, attempt + 1);
+            log.info("Executing scheduled reconnection for {} (attempt {})", endpoint, attempt + 1);
             connectWithRetry(endpoint, attempt + 1);
         }, new Date(System.currentTimeMillis() + delay));
 
@@ -397,7 +399,6 @@ public class PersistentWebSocketClient {
             try {
                 BlockingQueue<String> queue = messageQueues.get(endpoint);
                 if (queue.size() >= QUEUE_EMERGENCY_THRESHOLD) {
-                    // 保留最新消息
                     List<String> retainedMessages = new ArrayList<>();
                     queue.drainTo(retainedMessages);
 
@@ -630,8 +631,13 @@ public class PersistentWebSocketClient {
     private void cleanupConnection(String endpoint) {
         log.debug("Cleaning up connection for {}", endpoint);
 
+        // 取消发送任务
         cancelSenderTask(endpoint);
 
+        // 取消重连任务
+        cancelReconnectTask(endpoint);
+
+        // 关闭 WebSocket 会话
         WebSocketSession session = activeSessions.remove(endpoint);
         if (session != null && session.isOpen()) {
             try {
@@ -639,6 +645,12 @@ public class PersistentWebSocketClient {
             } catch (IOException e) {
                 log.error("Error closing session for {}: {}", endpoint, e.getMessage());
             }
+        }
+
+        // 清空消息队列
+        BlockingQueue<String> queue = messageQueues.get(endpoint);
+        if (queue != null) {
+            queue.clear();
         }
     }
 

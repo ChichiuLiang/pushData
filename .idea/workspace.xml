@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="简化">
+    <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="增加备用队列等方法。">
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/cache/BarCodeCache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/repository/BarCodeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/BarCodeRefreshService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/BarCodeRefreshTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-zongBu.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +114,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;138767469623632e16fcf94e1ac025a6&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -304,7 +314,7 @@
       <workItem from="1752565271448" duration="1363000" />
       <workItem from="1752567416761" duration="13736000" />
       <workItem from="1752642778171" duration="843000" />
-      <workItem from="1752643872993" duration="10888000" />
+      <workItem from="1752643872993" duration="40001000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -586,7 +596,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752654761843</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="增加备用队列等方法。">
+      <option name="closed" value="true" />
+      <created>1752655877123</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1752655877123</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -618,7 +636,8 @@
     <MESSAGE value="删除其他模块" />
     <MESSAGE value="重连后虚拟内存飙升" />
     <MESSAGE value="简化" />
-    <option name="LAST_COMMIT_MESSAGE" value="简化" />
+    <MESSAGE value="增加备用队列等方法。" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加备用队列等方法。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -875,7 +894,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java</url>
-          <line>54</line>
+          <line>52</line>
           <option name="timeStamp" value="329" />
         </line-breakpoint>
         <line-breakpoint type="java-line">

@@ -96,7 +96,7 @@ public class AlarmConfigAttributeServiceImpl implements CommandLineRunner {
 
     public void init(){
         //程序启动后的初始化方法
-        queryAlarmConfigAttribute();
+        //queryAlarmConfigAttribute();
 //        queryBarcodeToModel();
         queryMoudelIndex();
     }

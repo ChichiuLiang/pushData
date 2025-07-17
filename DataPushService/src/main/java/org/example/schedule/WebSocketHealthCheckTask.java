@@ -10,7 +10,7 @@ public class WebSocketHealthCheckTask {
     @Autowired
     private PersistentWebSocketClient webSocketClientManager;
 
-    @Scheduled(fixedRate = 30000) // 每30秒执行一次
+    @Scheduled(fixedRate = 10000) // 每30秒执行一次
     public void checkWebSocketConnections() {
         webSocketClientManager.checkConnections();
     }

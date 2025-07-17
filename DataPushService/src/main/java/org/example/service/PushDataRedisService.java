@@ -48,8 +48,6 @@ public class PushDataRedisService {
         dataMap.put("topic", topic);
         dataMap.put("data", context);
 
-        HttpEntity<ConcurrentHashMap<String, String>> httpEntity = new HttpEntity<>(dataMap);
-
         String jsonMessage = JSONObject.fromObject(dataMap).toString();
 
         webSocketService.sendRedis(jsonMessage);

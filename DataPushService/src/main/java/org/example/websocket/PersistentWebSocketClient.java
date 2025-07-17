@@ -19,9 +19,14 @@ import java.util.concurrent.*;
 public class PersistentWebSocketClient {
 
     private static final List<String> ENDPOINTS = Arrays.asList(
-            "ws://service.iems.gree.com:8092/ws/data/alarm",
-            "ws://service.iems.gree.com:8092/ws/data/statistic",
-            "ws://service.iems.gree.com:8092/ws/data/redis"
+//            "ws://service.iems.gree.com:8092/ws/data/alarm",
+//            "ws://service.iems.gree.com:8092/ws/data/statistic",
+//            "ws://service.iems.gree.com:8092/ws/data/redis",
+//            "ws://iems.neiic.com:9018/ws/data/statistic",
+//            "ws://iems.neiic.com:9018/ws/data/redis"
+            "ws://10.40.255.22:9118/ws/data/alarm",
+            "ws://10.40.255.22:9118/ws/data/statistic",
+            "ws://10.40.255.22:9118/ws/data/redis"
     );
 
     private final StandardWebSocketClient webSocketClient;
@@ -29,9 +34,9 @@ public class PersistentWebSocketClient {
     private final Map<String, BlockingQueue<String>> messageQueues = new ConcurrentHashMap<>();
     private final ScheduledExecutorService messageProcessor = Executors.newSingleThreadScheduledExecutor();
 
-    private static final int QUEUE_MAX_SIZE = 3000; // 队列最大大小
+    private static final int QUEUE_MAX_SIZE = 10000; // 队列最大大小
     private final Map<String, BlockingQueue<String>> backupMessageQueues = new ConcurrentHashMap<>();
-    private static final int BACKUP_QUEUE_MAX_SIZE = 1000; // 备用队列最大容量
+    private static final int BACKUP_QUEUE_MAX_SIZE = 5000; // 备用队列最大容量
     private final ScheduledExecutorService backupMessageProcessor = Executors.newSingleThreadScheduledExecutor();
 
 
@@ -140,17 +145,22 @@ public class PersistentWebSocketClient {
 
     // ====================== 便捷发送方法 ======================
     public void sendAlarm(String message) {
-        sendMessage(ENDPOINTS.get(0), message );
+//        sendMessage(ENDPOINTS.get(0), message );
     }
 
     public void sendStatistic(String message) {
         // 统计信息通常较为重要，使用高优先级
         sendMessage(ENDPOINTS.get(1), message );
+//        sendMessage(ENDPOINTS.get(3), message );
     }
 
     public void sendRedis(String message) {
         sendMessage(ENDPOINTS.get(2), message );
+//        sendMessage(ENDPOINTS.get(4), message );
     }
+
+
+
 
 
 

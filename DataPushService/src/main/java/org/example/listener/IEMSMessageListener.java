@@ -20,6 +20,6 @@ public class IEMSMessageListener implements MessageListener {
         String context = new String(message.getBody());
         utils.inputRedisMsg(topic, context);
         // 可以添加更多特定于 IEMS_* 的处理逻辑
-        handleService.processMessage(topic,context);
+        //handleService.processMessage(topic,context);
     }
 }

@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46e80d5a-9d7e-425f-a069-fda10a338d8a" name="Changes" comment="增加备用队列等方法。">
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/cache/BarCodeCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/repository/BarCodeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/BarCodeRefreshService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/BarCodeRefreshTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-zongBu.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/ logback-spring.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/config/RedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/listener/IEMSMessageListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/schedule/WebSocketHealthCheckTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/PushDataRedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/service/impl/AlarmConfigAttributeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/java/org/example/websocket/PersistentWebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/DataPushService/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,6 +308,7 @@
       <workItem from="1752567416761" duration="13736000" />
       <workItem from="1752642778171" duration="843000" />
       <workItem from="1752643872993" duration="40001000" />
+      <workItem from="1752760680420" duration="4711000" />
     </task>
     <task id="LOCAL-00001" summary="删除eureka">
       <option name="closed" value="true" />
@@ -604,7 +598,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752655877123</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="增加备用队列等方法。">
+      <option name="closed" value="true" />
+      <created>1752760861635</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1752760861635</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

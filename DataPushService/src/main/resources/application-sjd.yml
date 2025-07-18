@@ -39,8 +39,9 @@ remoteReceiveUrl: http://service.iems.gree.com:8092/receive
 energyName: shangJiaoDa
 pushLimit: 100
 
-websocket:
+
+web-socket-endpoints:
   endpoints:
-    - ws://service.iems.gree.com:8092/ws/data/alarm
-    - ws://service.iems.gree.com:8092/ws/data/statistic
-    - ws://service.iems.gree.com:8092/ws/data/redis
+    - "ws://service.iems.gree.com:8092/ws/data/alarm"
+    - "ws://service.iems.gree.com:8092/ws/data/statistic"
+    - "ws://service.iems.gree.com:8092/ws/data/redis"

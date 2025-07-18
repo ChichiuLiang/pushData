@@ -33,13 +33,13 @@ eureka:
 
 
 localUrl: http://localhost:8000/
-remoteReceiveUrl: http://service.iems.gree.com:8092/receive
+remoteReceiveUrl: http://10.40.255.22:9118/receive
 
 energyName: zongBu
 pushLimit: 100
 
-websocket:
+web-socket-endpoints:
   endpoints:
-    - ws://service.iems.gree.com:8092/ws/data/alarm
-    - ws://service.iems.gree.com:8092/ws/data/statistic
-    - ws://service.iems.gree.com:8092/ws/data/redis
+    - "ws://10.40.255.22:9118/ws/data/alarm"
+    - "ws://10.40.255.22:9118/ws/data/statistic"
+    - "ws://10.40.255.22:9118/ws/data/redis"

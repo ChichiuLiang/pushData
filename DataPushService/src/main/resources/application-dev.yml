@@ -47,16 +47,8 @@ energyName: shequ
 pushLimit: 100
 
 
-websocket:
+web-socket-endpoints:
   endpoints:
-    - ws://service.iems.gree.com:8092/ws/data/alarm
-    - ws://service.iems.gree.com:8092/ws/data/statistic
-    - ws://service.iems.gree.com:8092/ws/data/redis
-  # 线程池配置
-  thread-pool-size: 5
-  batch-size: 200
-  batch-timeout: 5
-
-  # 队列监控阈值
-  queue-alert-threshold: 10000
-  queue-cleanup-threshold: 50000
+    - "ws://service.iems.gree.com:8092/ws/data/alarm"
+    - "ws://service.iems.gree.com:8092/ws/data/statistic"
+    - "ws://service.iems.gree.com:8092/ws/data/redis"
